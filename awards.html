@@ -1,0 +1,1977 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>FrostyDelights | Awards & Recognition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+        }
+        /* Add these styles to your existing CSS */
+.texture-vanilla {
+  background-image: 
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8) 2%, transparent 3%),
+      radial-gradient(circle at 70% 60%, rgba(255,255,255,0.8) 2%, transparent 3%);
+  background-size: 30px 30px;
+}
+
+.texture-chocolate {
+  background-image: 
+      linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%),
+      linear-gradient(-45deg, rgba(0,0,0,0.1) 25%, transparent 25%);
+  background-size: 20px 20px;
+}
+
+.texture-strawberry {
+  background-image: 
+      radial-gradient(circle at 20% 40%, rgba(255,150,150,0.6) 3%, transparent 4%),
+      radial-gradient(circle at 80% 60%, rgba(255,180,180,0.6) 3%, transparent 4%);
+  background-size: 25px 25px;
+}
+
+.texture-coffee {
+  background-image: 
+      linear-gradient(135deg, rgba(0,0,0,0.2) 25%, transparent 25%),
+      linear-gradient(225deg, rgba(0,0,0,0.2) 25%, transparent 25%);
+  background-size: 15px 15px;
+}
+
+.whipped-cream {
+  background-image: 
+      radial-gradient(circle at 30% 30%, white 25%, transparent 26%),
+      radial-gradient(circle at 70% 70%, white 25%, transparent 26%),
+      radial-gradient(circle at 50% 20%, white 20%, transparent 21%);
+  background-size: 40px 40px;
+}
+
+.sauce-drip {
+  clip-path: polygon(
+      0% 0%,
+      100% 0%,
+      100% 80%,
+      80% 100%,
+      20% 100%,
+      0% 80%
+  );
+}
+
+.cherry {
+  box-shadow: 
+      0 2px 4px rgba(0,0,0,0.3),
+      inset -2px -2px 4px rgba(0,0,0,0.2);
+}
+
+.nut {
+  clip-path: polygon(
+      20% 0%,
+      80% 0%,
+      100% 100%,
+      0% 100%
+  );
+}
+
+.cookie {
+  box-shadow: 
+      inset 0 0 4px rgba(0,0,0,0.3);
+}
+
+.topping {
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+   /* Add these styles for the wheel */
+   .wheel-segment {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0);
+}
+
+.spinning-wheel {
+    transform: rotate(0deg);
+}
+
+/* Make sure the wheel is circular */
+#wheel {
+    border-radius: 50%;
+}
+  /* Floating animation for decorative elements */
+  @keyframes float-1 {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-20px) translateX(10px); }
+}
+@keyframes float-2 {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-30px) translateX(-15px); }
+}
+@keyframes float-3 {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(20px) translateX(20px); }
+}
+.animate-float-1 { animation: float-1 8s ease-in-out infinite; }
+.animate-float-2 { animation: float-2 10s ease-in-out infinite 2s; }
+.animate-float-3 { animation: float-3 12s ease-in-out infinite 1s; }
+
+/* Timeline dot active state */
+.timeline-dot.active .dot {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.3);
+}
+
+/* Timeline label styling */
+.timeline-dot .dot {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.timeline-dot .dot span {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9fafb;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        .award-card {
+            perspective: 1000px;
+            transition: all 0.5s ease;
+        }
+        .award-card:hover {
+            transform: translateY(-10px);
+        }
+        .award-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .award-card:hover .award-card-inner {
+            transform: rotateY(180deg);
+        }
+        .award-card-front, .award-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .award-card-front {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+        .award-card-back {
+            background: white;
+            transform: rotateY(180deg);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .testimonial-slider {
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+        .testimonial-slide {
+            scroll-snap-align: start;
+            flex: 0 0 100%;
+        }
+        .frosted-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* New animations */
+        .pulse-glow {
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(255,107,107,0.5); }
+            100% { box-shadow: 0 0 20px rgba(255,107,107,0.8); }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .rotate-3d {
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+        .rotate-3d:hover {
+            transform: rotateX(10deg) rotateY(10deg);
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #FF6B6B;
+            opacity: 0;
+        }
+        
+        /* Mystery Flavor Reveal */
+        .mystery-flavor {
+            position: relative;
+            overflow: hidden;
+        }
+        .mystery-flavor::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255,107,107,0.1) 0%, 
+                rgba(78,205,196,0.1) 50%, 
+                rgba(255,107,107,0.1) 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            z-index: 0;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Spin the Cone */
+        .spinning-wheel {
+            transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+        .wheel-option {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            transform-origin: 50% 150px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-pink-50">
+    <!-- Header with Mystery Flavor Alert -->
+    <header class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+            <div class="text-3xl font-bold text-pink-500">
+                FrostyDelights
+            </div>
+            <div class="hidden md:flex items-center space-x-2 bg-pink-100 px-4 py-2 rounded-full pulse-glow">
+                <span class="text-pink-700 font-medium">This Week's Mystery Flavor:</span>
+                <button id="revealMystery" class="bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold hover:bg-pink-600 transition-colors">
+                    Reveal Now!
+                </button>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a class="text-gray-600 hover:text-pink-500 transition-colors" href="index.html">Home</a>
+                <a class="text-gray-600 hover:text-pink-500 transition-colors" href="flavors.html">Flavors</a>
+                <a class="text-gray-600 hover:text-pink-500 transition-colors" href="our-story.html">Our Story</a>
+                <a class="text-pink-500 font-medium underline decoration-2" href="awards.html">Awards</a>
+                <a class="text-gray-600 hover:text-pink-500 transition-colors" href="#contact">Contact</a>
+            </nav>
+            <button class="md:hidden text-gray-600">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section with Flavor Match Quiz -->
+    <section class="container mx-auto px-6 py-16 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-gray-800 slide-up">
+            Celebrating Excellence
+        </h1>
+        <h2 class="text-3xl md:text-5xl font-bold mb-8 text-pink-500 slide-up" style="animation-delay: 0.2s">
+            Our Award-Winning Creations
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto slide-up" style="animation-delay: 0.4s">
+            Recognized by ice cream connoisseurs worldwide, FrostyDelights has earned numerous accolades for our innovative flavors and commitment to quality.
+        </p>
+        
+        <!-- Flavor Match Quiz -->
+        <div class="mt-12 max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden slide-up" style="animation-delay: 0.6s">
+            <div class="p-6 text-left">
+                <h3 class="text-2xl font-bold mb-4 text-gray-800">Find Your Perfect Flavor Match!</h3>
+                <div id="quizContainer">
+                    <div id="quizStep1" class="quiz-step">
+                        <p class="text-gray-600 mb-4">What's your favorite time to enjoy ice cream?</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="morning">
+                                <i class="fas fa-sun text-yellow-400 mb-2"></i>
+                                <span>Morning Treat</span>
+                            </button>
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="afternoon">
+                                <i class="fas fa-cloud-sun text-blue-400 mb-2"></i>
+                                <span>Afternoon Snack</span>
+                            </button>
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="evening">
+                                <i class="fas fa-moon text-purple-400 mb-2"></i>
+                                <span>Evening Dessert</span>
+                            </button>
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="anytime">
+                                <i class="fas fa-clock text-gray-500 mb-2"></i>
+                                <span>Anytime is Ice Cream Time!</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="quizStep2" class="quiz-step hidden">
+                        <p class="text-gray-600 mb-4">Which texture do you prefer?</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="creamy">
+                                <i class="fas fa-ice-cream text-pink-300 mb-2"></i>
+                                <span>Super Creamy</span>
+                            </button>
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="icy">
+                                <i class="fas fa-snowflake text-blue-300 mb-2"></i>
+                                <span>Light & Icy</span>
+                            </button>
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="chunky">
+                                <i class="fas fa-cookie text-amber-600 mb-2"></i>
+                                <span>Chunky Mix-Ins</span>
+                            </button>
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="swirl">
+                                <i class="fas fa-swirl text-purple-500 mb-2"></i>
+                                <span>Swirled Toppings</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="quizStep3" class="quiz-step hidden">
+                        <p class="text-gray-600 mb-4">What's your current mood?</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="happy">
+                                <i class="fas fa-laugh-beam text-yellow-400 mb-2"></i>
+                                <span>Happy & Playful</span>
+                            </button>
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="stressed">
+                                <i class="fas fa-cloud-meatball text-gray-500 mb-2"></i>
+                                <span>Stressed & Need Comfort</span>
+                            </button>
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="adventurous">
+                                <i class="fas fa-hiking text-green-500 mb-2"></i>
+                                <span>Adventurous</span>
+                            </button>
+                            <button class="quiz-option bg-gray-100 hover:bg-pink-100 border border-gray-200 rounded-lg p-4 transition-colors" data-value="lazy">
+                                <i class="fas fa-couch text-blue-400 mb-2"></i>
+                                <span>Lazy & Relaxed</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="quizResult" class="hidden text-center py-8">
+                        <div class="mb-6">
+                            <img id="resultImage" src="" alt="Recommended Flavor" class="w-32 h-32 mx-auto mb-4">
+                            <h4 class="text-xl font-bold text-pink-500" id="resultTitle"></h4>
+                            <p class="text-gray-600 mt-2" id="resultDescription"></p>
+                        </div>
+                        <button id="restartQuiz" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors">
+                            Take Quiz Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards Grid with Confetti Celebration -->
+    <section class="container mx-auto px-6 py-12 relative">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Award 1 -->
+            <div class="award-card h-96 rotate-3d">
+                <div class="award-card-inner">
+                    <div class="award-card-front">
+                        <img alt="Best Ice Cream 2023" class="w-40 h-40 floating" src="award.png"/>
+                        <h3 class="mt-6 text-2xl font-bold text-gray-800">Best Ice Cream 2023</h3>
+                        <p class="mt-2 text-pink-500">International Dairy Association</p>
+                    </div>
+                    <div class="award-card-back">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Best Ice Cream 2023</h3>
+                        <p class="text-gray-600 mb-4">Our signature Chocolate Euphoria flavor was crowned the best ice cream of the year by a panel of 50 international judges.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100">
+                            <p class="text-sm text-gray-500">Awarded: June 15, 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Award 2 -->
+            <div class="award-card h-96 rotate-3d">
+                <div class="award-card-inner">
+                    <div class="award-card-front">
+                        <img alt="Silver Spoon Award" class="w-40 h-40 floating" src="silver.png"/>
+                        <h3 class="mt-6 text-2xl font-bold text-gray-800">Silver Spoon Award</h3>
+                        <p class="mt-2 text-pink-500">Gourmet Food Magazine</p>
+                    </div>
+                    <div class="award-card-back">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Silver Spoon Award</h3>
+                        <p class="text-gray-600 mb-4">Recognized for our exceptional texture and balance of flavors in our Cookie Dough Dream variety.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100">
+                            <p class="text-sm text-gray-500">Awarded: March 3, 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Award 3 -->
+            <div class="award-card h-96 rotate-3d">
+                <div class="award-card-inner">
+                    <div class="award-card-front">
+                        <img alt="Bronze Delight Award" class="w-40 h-40 floating" src="bron.png"/>
+                        <h3 class="mt-6 text-2xl font-bold text-gray-800">Bronze Delight Award</h3>
+                        <p class="mt-2 text-pink-500">National Ice Cream Association</p>
+                    </div>
+                    <div class="award-card-back">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Bronze Delight Award</h3>
+                        <p class="text-gray-600 mb-4">Honored for achieving a 98% customer satisfaction rating across all our stores nationwide.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100">
+                            <p class="text-sm text-gray-500">Awarded: August 22, 2022</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Award 4 -->
+            <div class="award-card h-96 rotate-3d">
+                <div class="award-card-inner">
+                    <div class="award-card-front">
+                        <img alt="Blue Ribbon Award" class="w-40 h-40 floating" src="blue.png"/>
+                        <h3 class="mt-6 text-2xl font-bold text-gray-800">Blue Ribbon Award</h3>
+                        <p class="mt-2 text-pink-500">World Food Innovation</p>
+                    </div>
+                    <div class="award-card-back">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Blue Ribbon Award</h3>
+                        <p class="text-gray-600 mb-4">Our limited-edition Summer Berry Blast was voted best new flavor by 10,000 consumers in blind taste tests.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100">
+                            <p class="text-sm text-gray-500">Awarded: May 10, 2022</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Award 5 -->
+            <div class="award-card h-96 rotate-3d">
+                <div class="award-card-inner">
+                    <div class="award-card-front">
+                        <img alt="Green Ribbon Award" class="w-40 h-40 floating" src="green.png"/>
+                        <h3 class="mt-6 text-2xl font-bold text-gray-800">Green Ribbon Award</h3>
+                        <p class="mt-2 text-pink-500">Eco-Friendly Business Alliance</p>
+                    </div>
+                    <div class="award-card-back">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Green Ribbon Award</h3>
+                        <p class="text-gray-600 mb-4">Recognized for our 100% biodegradable packaging and carbon-neutral production facilities.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100">
+                            <p class="text-sm text-gray-500">Awarded: April 5, 2022</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Award 6 -->
+            <div class="award-card h-96 rotate-3d">
+                <div class="award-card-inner">
+                    <div class="award-card-front">
+                        <img alt="Red Ribbon Award" class="w-40 h-40 floating" src="frosty delight.png"/>
+                        <h3 class="mt-6 text-2xl font-bold text-gray-800">Red Ribbon Award</h3>
+                        <p class="mt-2 text-pink-500">Service Excellence Institute</p>
+                    </div>
+                    <div class="award-card-back">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Red Ribbon Award</h3>
+                        <p class="text-gray-600 mb-4">Awarded for our industry-leading customer service training program and satisfaction guarantees.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100">
+                            <p class="text-sm text-gray-500">Awarded: January 18, 2022</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Confetti container (hidden until triggered) -->
+        <div id="confettiContainer" class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden hidden"></div>
+    </section>
+
+    <!-- Mystery Flavor Section -->
+    <section class="py-16 bg-gradient-to-r from-pink-100 to-blue-100">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6">This Week's Mystery Flavor</h2>
+            <div class="max-w-lg mx-auto mystery-flavor rounded-xl overflow-hidden shadow-lg">
+                <div class="relative z-10 bg-white bg-opacity-90 p-8">
+                    <div id="mysteryContent">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Can You Guess It?</h3>
+                        <p class="text-gray-600 mb-6">Each week we feature a special mystery flavor. Guess correctly and get 10% off your next order!</p>
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <button class="guess-option bg-white border border-pink-300 rounded-lg p-3 hover:bg-pink-50 transition-colors">Berry Blast</button>
+                            <button class="guess-option bg-white border border-pink-300 rounded-lg p-3 hover:bg-pink-50 transition-colors">Caramel Swirl</button>
+                            <button class="guess-option bg-white border border-pink-300 rounded-lg p-3 hover:bg-pink-50 transition-colors">Mint Chocolate</button>
+                            <button class="guess-option bg-white border border-pink-300 rounded-lg p-3 hover:bg-pink-50 transition-colors">Peanut Butter</button>
+                        </div>
+                        <button id="revealFlavor" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors">
+                            I Can't Wait - Reveal Now!
+                        </button>
+                    </div>
+                    <div id="mysteryReveal" class="hidden">
+                        <h3 class="text-2xl font-bold text-pink-500 mb-4">This Week's Flavor:</h3>
+                        <p class="text-3xl font-bold text-gray-800 mb-4">Tropical Sunset</p>
+                        <p class="text-gray-600 mb-6">A delightful blend of mango, passionfruit, and coconut with a hint of lime zest!</p>
+                        <div class="bg-pink-100 border border-pink-200 rounded-lg p-4 inline-block">
+                            <p class="text-pink-700 font-medium">Use code <span class="font-bold">MYSTERY10</span> for 10% off your next order!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Build Your Own Sundae Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Build Your Dream Sundae</h2>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/2">
+                    <div class="bg-gray-50 rounded-xl p-6 h-full">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Base Flavor -->
+                            <div>
+                                <h3 class="font-bold mb-3">1. Choose Your Base</h3>
+                                <div class="space-y-2">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="base" class="sundae-option" value="vanilla" checked>
+                                        <span>Classic Vanilla</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="base" class="sundae-option" value="chocolate">
+                                        <span>Rich Chocolate</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="base" class="sundae-option" value="strawberry">
+                                        <span>Strawberry Swirl</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="base" class="sundae-option" value="coffee">
+                                        <span>Mocha Coffee</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Toppings -->
+                            <div>
+                                <h3 class="font-bold mb-3">2. Add Toppings</h3>
+                                <div class="space-y-2">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" class="sundae-option" value="sprinkles">
+                                        <span>Rainbow Sprinkles</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" class="sundae-option" value="nuts">
+                                        <span>Crushed Nuts</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" class="sundae-option" value="cookie">
+                                        <span>Cookie Crumbles</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" class="sundae-option" value="fruit">
+                                        <span>Fresh Berries</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Sauce -->
+                            <div>
+                                <h3 class="font-bold mb-3">3. Drizzle Sauce</h3>
+                                <div class="space-y-2">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="sauce" class="sundae-option" value="chocolate" checked>
+                                        <span>Hot Fudge</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="sauce" class="sundae-option" value="caramel">
+                                        <span>Caramel</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="sauce" class="sundae-option" value="strawberry">
+                                        <span>Strawberry</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="sauce" class="sundae-option" value="none">
+                                        <span>None</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Whipped Cream -->
+                            <div>
+                                <h3 class="font-bold mb-3">4. Finishing Touches</h3>
+                                <div class="space-y-2">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" class="sundae-option" value="whipped" checked>
+                                        <span>Whipped Cream</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" class="sundae-option" value="cherry">
+                                        <span>Cherry on Top</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" class="sundae-option" value="dusting">
+                                        <span>Cocoa Dusting</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button id="buildSundae" class="mt-8 w-full bg-pink-500 text-white py-3 rounded-lg font-semibold hover:bg-pink-600 transition-colors">
+                            Build My Sundae!
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-gray-50 rounded-xl p-8 h-full flex flex-col items-center justify-center">
+                        <div id="sundaePreview" class="relative w-64 h-64 mb-6">
+                            <!-- Sundae elements will be added here by JavaScript -->
+                            <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-amber-100 rounded-full" id="sundaeBase"></div>
+                            <div class="absolute bottom-24 left-1/2 transform -translate-x-1/2 w-40 h-8 bg-pink-200 rounded-full hidden" id="sundaeSauce"></div>
+                            <div class="absolute bottom-32 left-1/2 transform -translate-x-1/2 w-44 h-6 bg-white rounded-full hidden" id="sundaeWhipped"></div>
+                            <div class="absolute top-20 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-red-500 rounded-full hidden" id="sundaeCherry"></div>
+                            
+                            <!-- Toppings will be added dynamically -->
+                        </div>
+                        
+                        <div id="sundaeDescription" class="text-center">
+                            <h3 class="text-xl font-bold text-gray-800">Your Custom Creation</h3>
+                            <p class="text-gray-600 mt-2">Select your favorite ingredients to build your perfect sundae!</p>
+                        </div>
+                        
+                        <button id="orderSundae" class="mt-6 bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors hidden">
+                            Order This Sundae
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spin the Cone Game -->
+ <!-- Spin the Wheel Section -->
+<section class="py-16 bg-gradient-to-br from-pink-50 to-blue-50">
+  <iframe 
+  src="spin.html"
+  class="w-full h-[600px] border-0"
+  allowfullscreen
+  loading="lazy"
+  style="background: transparent;">
+</iframe>
+</section>
+
+
+
+    <!-- Midnight Cravings Section -->
+    <section class="py-16 bg-gray-900 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold mb-6">Midnight Cravings?</h2>
+                <p class="text-xl mb-8">We've got you covered until 2AM with our late-night delivery service!</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2">
+                        <i class="fas fa-moon"></i>
+                        <span>Order Late-Night Delivery</span>
+                    </button>
+                    <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Find 24/7 Locations</span>
+                    </button>
+                </div>
+                
+                <div class="mt-8 flex flex-wrap justify-center gap-4">
+                    <div class="bg-gray-800 rounded-lg p-4 flex items-center space-x-3">
+                        <i class="fas fa-bolt text-yellow-400"></i>
+                        <span>Average delivery time: 35 mins</span>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4 flex items-center space-x-3">
+<i class="fas fa-ice-cream text-pink-400"></i>
+<span>Special late-night flavors available</span>
+</div>
+<div class="bg-gray-800 rounded-lg p-4 flex items-center space-x-3">
+<i class="fas fa-clock text-blue-400"></i>
+<span>Open until 2AM on weekends</span>
+</div>
+</div>
+</div>
+</div>
+</section> 
+	<!-- Eco-Scoops Section -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-12">Eco-Scoops: Our Green Initiatives</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-green-50 rounded-xl p-6 border border-green-100 hover:shadow-lg transition-shadow">
+                <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                    <i class="fas fa-leaf text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-center mb-3">Sustainable Packaging</h3>
+                <p class="text-gray-600 text-center">Our 100% biodegradable containers and spoons decompose in just 90 days, earning us the Green Ribbon Award.</p>
+            </div>
+            <div class="bg-green-50 rounded-xl p-6 border border-green-100 hover:shadow-lg transition-shadow">
+                <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                    <i class="fas fa-tint text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-center mb-3">Water Conservation</h3>
+                <p class="text-gray-600 text-center">Our production process uses 40% less water than industry standards through innovative recycling systems.</p>
+            </div>
+            <div class="bg-green-50 rounded-xl p-6 border border-green-100 hover:shadow-lg transition-shadow">
+                <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                    <i class="fas fa-sun text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-center mb-3">Solar-Powered</h3>
+                <p class="text-gray-600 text-center">All our stores and factories run on 100% renewable solar energy, reducing our carbon footprint to zero.</p>
+            </div>
+        </div>
+        
+        <div class="mt-12 bg-gradient-to-r from-green-100 to-blue-100 rounded-xl p-8 text-center">
+            <h3 class="text-2xl font-bold mb-4">Our Sustainability Promise</h3>
+            <p class="text-gray-700 mb-6 max-w-3xl mx-auto">By 2025, we pledge to become the first completely carbon-negative ice cream company worldwide, removing more CO2 from the atmosphere than we produce.</p>
+            <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors inline-flex items-center">
+                <i class="fas fa-seedling mr-2"></i>
+                Learn About Our Green Initiatives
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Freeze Points & Rewards -->
+<section class="py-16 bg-gradient-to-br from-pink-50 to-blue-50">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-1/2">
+                <h2 class="text-3xl font-bold mb-6">Freeze Points & Rewards</h2>
+                <p class="text-gray-600 mb-6">Join our loyalty program and earn points for every purchase, social share, and friend referral. Redeem points for free scoops, exclusive flavors, and special experiences!</p>
+                
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-start">
+                        <div class="bg-pink-100 text-pink-500 p-2 rounded-full mr-4">
+                            <i class="fas fa-ice-cream"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Earn Points</h4>
+                            <p class="text-gray-600 text-sm">1 point for every $1 spent, plus bonus points for social shares and referrals</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 text-blue-500 p-2 rounded-full mr-4">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Redeem Rewards</h4>
+                            <p class="text-gray-600 text-sm">Free scoops, exclusive flavors, VIP events, and more</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 text-purple-500 p-2 rounded-full mr-4">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Special Perks</h4>
+                            <p class="text-gray-600 text-sm">Early access to new flavors, birthday treats, and surprise rewards</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                    Join Freeze Rewards Now
+                </button>
+            </div>
+            
+            <div class="lg:w-1/2">
+                <div class="bg-white rounded-xl shadow-lg p-6 relative overflow-hidden">
+                    <div class="absolute -top-20 -right-20 w-40 h-40 bg-pink-100 rounded-full opacity-30"></div>
+                    <div class="absolute -bottom-16 -left-16 w-32 h-32 bg-blue-100 rounded-full opacity-30"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="text-center mb-6">
+                            <div class="inline-block bg-pink-500 text-white text-2xl font-bold px-6 py-3 rounded-full">
+                                Your Freeze Points
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center mb-8">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-pink-500">125</div>
+                                <div class="text-gray-500 text-sm">Points Earned</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-blue-500">75</div>
+                                <div class="text-gray-500 text-sm">Points to Next Reward</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="h-4 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-pink-500 to-blue-500 rounded-full" style="width: 62%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div class="bg-pink-50 p-3 rounded-lg">
+                                <div class="text-pink-500 font-bold mb-1">50 pts</div>
+                                <div class="text-xs text-gray-600">Free Topping</div>
+                            </div>
+                            <div class="bg-blue-50 p-3 rounded-lg">
+                                <div class="text-blue-500 font-bold mb-1">100 pts</div>
+                                <div class="text-xs text-gray-600">Free Scoop</div>
+                            </div>
+                            <div class="bg-purple-50 p-3 rounded-lg">
+                                <div class="text-purple-500 font-bold mb-1">200 pts</div>
+                                <div class="text-xs text-gray-600">Free Sundae</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ice Cream Evolution Timeline -->
+<section class="py-20 bg-gradient-to-b from-blue-50 to-pink-50 relative overflow-hidden">
+    <!-- Decorative floating ice cream elements -->
+    <div class="absolute top-20 left-10 w-16 h-16 rounded-full bg-pink-100 opacity-20 animate-float-1"></div>
+    <div class="absolute top-1/3 right-20 w-12 h-12 rounded-full bg-blue-100 opacity-20 animate-float-2"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-14 h-14 rounded-full bg-yellow-100 opacity-20 animate-float-3"></div>
+    
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800">Ice Cream Time Travel</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-blue-500 mx-auto mb-6"></div>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Journey through the delicious history of ice cream from ancient times to modern innovations
+            </p>
+        </div>
+        
+        <!-- Interactive Timeline -->
+        <div class="relative">
+            <!-- Timeline Bar -->
+            <div class="absolute left-0 right-0 top-1/2 h-2 bg-gray-200 rounded-full transform -translate-y-1/2 z-0"></div>
+            <div id="timelineProgress" class="absolute left-0 top-1/2 h-2 bg-gradient-to-r from-pink-500 to-blue-500 rounded-full transform -translate-y-1/2 z-10" style="width: 0%"></div>
+            
+            <!-- Timeline Navigation -->
+            <div class="relative z-20 flex justify-between">
+                <button class="timeline-dot group" data-year="ancient" data-position="0">
+                    <div class="relative">
+                        <div class="dot w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold transform group-hover:scale-110 transition-all mx-auto">
+                            <span class="absolute inset-0 flex items-center justify-center">500BC</span>
+                        </div>
+                        <div class="absolute top-full mt-3 w-full text-center">
+                            <span class="text-sm font-medium text-gray-700 opacity-100 transition-opacity">Ancient Origins</span>
+                        </div>
+                    </div>
+                </button>
+                
+                <button class="timeline-dot group" data-year="medieval" data-position="25">
+                    <div class="relative">
+                        <div class="dot w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold transform group-hover:scale-110 transition-all mx-auto">
+                            <span class="absolute inset-0 flex items-center justify-center">1300</span>
+                        </div>
+                        <div class="absolute top-full mt-3 w-full text-center">
+                            <span class="text-sm font-medium text-gray-700 opacity-100 transition-opacity">Medieval Era</span>
+                        </div>
+                    </div>
+                </button>
+                
+                <button class="timeline-dot group" data-year="colonial" data-position="50">
+                    <div class="relative">
+                        <div class="dot w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold transform group-hover:scale-110 transition-all mx-auto">
+                            <span class="absolute inset-0 flex items-center justify-center">1744</span>
+                        </div>
+                        <div class="absolute top-full mt-3 w-full text-center">
+                            <span class="text-sm font-medium text-gray-700 opacity-100 transition-opacity">Colonial Era</span>
+                        </div>
+                    </div>
+                </button>
+                
+                <button class="timeline-dot group" data-year="industrial" data-position="75">
+                    <div class="relative">
+                        <div class="dot w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold transform group-hover:scale-110 transition-all mx-auto">
+                            <span class="absolute inset-0 flex items-center justify-center">1851</span>
+                        </div>
+                        <div class="absolute top-full mt-3 w-full text-center">
+                            <span class="text-sm font-medium text-gray-700 opacity-100 transition-opacity">Industrial Rev</span>
+                        </div>
+                    </div>
+                </button>
+                
+                <button class="timeline-dot group" data-year="modern" data-position="100">
+                    <div class="relative">
+                        <div class="dot w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold transform group-hover:scale-110 transition-all mx-auto">
+                            <span class="absolute inset-0 flex items-center justify-center">2023</span>
+                        </div>
+                        <div class="absolute top-full mt-3 w-full text-center">
+                            <span class="text-sm font-medium text-gray-700 opacity-100 transition-opacity">Modern Era</span>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Timeline Content Display -->
+        <div class="mt-24 bg-white rounded-2xl shadow-xl overflow-hidden max-w-4xl mx-auto">
+            <!-- Default Content -->
+            <div id="defaultContent" class="p-8 text-center">
+                <div class="max-w-md mx-auto">
+                    <div class="w-20 h-20 bg-gradient-to-r from-pink-500 to-blue-500 rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-6">
+                        <i class="fas fa-ice-cream"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Explore Ice Cream History</h3>
+                    <p class="text-gray-600 mb-6">Click on any timeline marker above to discover how ice cream has evolved through the centuries!</p>
+                    <div class="flex justify-center">
+                        <div class="animate-bounce text-pink-500">
+                            <i class="fas fa-arrow-down text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Historical Period Contents -->
+            <div id="ancientContent" class="hidden p-8 md:p-12">
+                <div class="md:flex gap-8 items-center">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Ancient Persia" 
+                             class="w-full h-64 object-cover rounded-xl shadow-lg">
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">500 BC</span>
+                            <span class="ml-3 text-gray-500">Persian Empire</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Ancient Ice Treats</h3>
+                        <p class="text-gray-600 mb-4">Persian emperors enjoyed snow mixed with grape juice and honey, an early precursor to sorbet. These icy treats were collected from mountain snows and stored in underground chambers called "yakhchals."</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                            <span>Did you know? This was considered a royal delicacy only available to the wealthy.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="medievalContent" class="hidden p-8 md:p-12">
+                <div class="md:flex gap-8 items-center">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpSwOIoZbqi--CZB9nt-zGTj4VcJpv1A1R5w&s" 
+                             alt="Medieval Italy" 
+                             class="w-full h-64 object-cover rounded-xl shadow-lg">
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">1300 AD</span>
+                            <span class="ml-3 text-gray-500">Medieval Europe</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Marco Polo's Sweet Return</h3>
+                        <p class="text-gray-600 mb-4">Marco Polo possibly brought recipes for milk-based ice from China to Italy, though historians debate this. What's certain is that Italian chefs began experimenting with frozen desserts during this period.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                            <span>Catherine de' Medici later introduced these desserts to France when she married Henry II.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="colonialContent" class="hidden p-8 md:p-12">
+                <div class="md:flex gap-8 items-center">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <img src="https://rhapsodyinbooks.files.wordpress.com/2022/07/history-ice-cream-og.webp?w=584&h=329" 
+                             alt="Colonial America" 
+                             class="w-full h-64 object-cover rounded-xl shadow-lg">
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">1744</span>
+                            <span class="ml-3 text-gray-500">Colonial America</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Ice Cream Crosses the Atlantic</h3>
+                        <p class="text-gray-600 mb-4">The first official account of ice cream in America was served by Maryland Governor William Bladen. George Washington later spent $200 on ice cream during the summer of 1790 (about $5,000 today).</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                            <span>Thomas Jefferson created his own 18-step vanilla ice cream recipe that's still preserved.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="industrialContent" class="hidden p-8 md:p-12">
+                <div class="md:flex gap-8 items-center">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <img src="https://historified.in/wp-content/uploads/2023/07/8319ca76768cd378d30f29ee92591eb0.jpg" 
+                             alt="Industrial Revolution" 
+                             class="w-full h-64 object-cover rounded-xl shadow-lg">
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">1851</span>
+                            <span class="ml-3 text-gray-500">Industrial Revolution</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">The Birth of Commercial Ice Cream</h3>
+                        <p class="text-gray-600 mb-4">Jacob Fussell established the first commercial ice cream factory in Baltimore, making it more accessible to the general public. This revolutionized ice cream from a luxury item to an everyday treat.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                            <span>The invention of mechanical refrigeration made ice cream production possible year-round.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="modernContent" class="hidden p-8 md:p-12">
+                <div class="md:flex gap-8 items-center">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80" 
+                             alt="Modern Ice Cream" 
+                             class="w-full h-64 object-cover rounded-xl shadow-lg">
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">2023</span>
+                            <span class="ml-3 text-gray-500">Modern Era</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">The Golden Age of Ice Cream</h3>
+                        <p class="text-gray-600 mb-4">Today's ice cream features innovative flavors, plant-based options, and sustainable production methods. Artisanal ice cream makers are pushing boundaries with unexpected ingredients and techniques.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                            <span>The global ice cream market is projected to reach $91 billion by 2027!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scoop & Share Social Wall -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-12">Scoop & Share</h2>
+        <p class="text-xl text-gray-600 text-center max-w-3xl mx-auto mb-8">Join our sweet community! Share your FrostyDelights moments with #FrostyMoments for a chance to be featured.</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="relative overflow-hidden rounded-xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1560008581-09826d1de69e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1444&q=80" alt="Ice cream" class="w-full h-full object-cover hover:scale-105 transition-transform">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <p class="text-white text-sm">@sweettooth: Best sundae ever!</p>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1516559828984-fb3b99548b21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ice cream" class="w-full h-full object-cover hover:scale-105 transition-transform">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <p class="text-white text-sm">@dessertlover: Perfect beach treat</p>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Ice cream" class="w-full h-full object-cover hover:scale-105 transition-transform">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <p class="text-white text-sm">@foodie_adventures: Flavor testing!</p>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ice cream" class="w-full h-full object-cover hover:scale-105 transition-transform">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <p class="text-white text-sm">@happy_eater: My happy place</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <button class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors inline-flex items-center">
+                <i class="fab fa-instagram mr-2"></i>
+                View More on Instagram
+            </button>
+        </div>
+    </div>
+</section>
+    <!-- Contact Section -->
+    <section class="py-16 bg-gradient-to-br from-pink-50 to-blue-50" id="contact">
+      <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold text-center mb-12">Contact Us</h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              <div>
+                  <h3 class="text-xl font-bold mb-6">Get in Touch</h3>
+                  <div class="space-y-6">
+                      <div class="flex items-start">
+                          <div class="bg-pink-500 text-white p-3 rounded-lg mr-4">
+                              <i class="fas fa-map-marker-alt"></i>
+                          </div>
+                          <div>
+                              <h4 class="font-bold mb-1">Headquarters</h4>
+                              <p class="text-gray-600">123 Creamery Lane, Burlington, VT 05401</p>
+                          </div>
+                      </div>
+                      <div class="flex items-start">
+                          <div class="bg-pink-500 text-white p-3 rounded-lg mr-4">
+                              <i class="fas fa-phone-alt"></i>
+                          </div>
+                          <div>
+                              <h4 class="font-bold mb-1">Phone</h4>
+                              <p class="text-gray-600">(802) 555-ICECREAM</p>
+                          </div>
+                      </div>
+                      <div class="flex items-start">
+                          <div class="bg-pink-500 text-white p-3 rounded-lg mr-4">
+                              <i class="fas fa-envelope"></i>
+                          </div>
+                          <div>
+                              <h4 class="font-bold mb-1">Email</h4>
+                              <p class="text-gray-600">hello@frostydelights.com</p>
+                          </div>
+                      </div>
+                      <div class="flex items-start">
+                          <div class="bg-pink-500 text-white p-3 rounded-lg mr-4">
+                              <i class="fas fa-clock"></i>
+                          </div>
+                          <div>
+                              <h4 class="font-bold mb-1">Customer Support Hours</h4>
+                              <p class="text-gray-600">Monday-Friday
+Run HTML
+continue
+9am-6pm EST</p>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<h4 class="font-bold mb-4">Follow Our Journey</h4>
+<div class="flex space-x-4">
+<a href="#" class="bg-pink-500 text-white p-3 rounded-full hover:bg-pink-600 transition-colors">
+<i class="fab fa-instagram"></i>
+</a>
+<a href="#" class="bg-pink-500 text-white p-3 rounded-full hover:bg-pink-600 transition-colors">
+<i class="fab fa-facebook-f"></i>
+</a>
+<a href="#" class="bg-pink-500 text-white p-3 rounded-full hover:bg-pink-600 transition-colors">
+<i class="fab fa-twitter"></i>
+</a>
+<a href="#" class="bg-pink-500 text-white p-3 rounded-full hover:bg-pink-600 transition-colors">
+<i class="fab fa-tiktok"></i>
+</a>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-6">Send Us a Message</h3>
+<form class="space-y-4">
+<div>
+<label class="block text-gray-700 mb-2">Name</label>
+<input type="text" class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+</div>
+<div>
+<label class="block text-gray-700 mb-2">Email</label>
+<input type="email" class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+</div>
+<div>
+<label class="block text-gray-700 mb-2">Subject</label>
+<select class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+<option>General Inquiry</option>
+<option>Wholesale Orders</option>
+<option>Event Inquiry</option>
+<option>Press/Media</option>
+<option>Feedback</option>
+</select>
+</div>
+<div>
+<label class="block text-gray-700 mb-2">Message</label>
+<textarea rows="4" class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"></textarea>
+</div>
+<button type="submit" class="w-full bg-pink-500 text-white py-3 rounded-lg font-semibold hover:bg-pink-600 transition-colors">
+Send Message
+</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+
+
+
+    <!-- Glowing Testimonials -->
+    <section class="py-20 bg-gradient-to-b from-blue-50 to-pink-50 relative z-10">
+      <div class="container mx-auto px-6">
+          <div class="text-center mb-16">
+              <h2 class="text-4xl font-bold mb-4 text-gray-800">What People Say</h2>
+              <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-blue-500 mx-auto mb-6"></div>
+              <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                  Hear from ice cream lovers and industry experts about our award-winning creations
+              </p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <!-- Testimonial 1 -->
+              <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg relative overflow-hidden">
+                  <div class="absolute top-4 right-4 text-6xl opacity-10 text-pink-500">
+                      <i class="fas fa-quote-right"></i>
+                  </div>
+                  <div class="flex items-center mb-6">
+                      <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson" class="w-16 h-16 rounded-full object-cover border-4 border-white shadow-md">
+                      <div class="ml-4">
+                          <h4 class="text-xl font-bold">Sarah Johnson</h4>
+                          <p class="text-gray-500">Food Critic, Delicious Magazine</p>
+                      </div>
+                  </div>
+                  <p class="text-gray-700 text-lg italic relative pl-6 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-gradient-to-b from-pink-500 to-blue-500 before:rounded-full">
+                      "FrostyDelights consistently delivers exceptional quality. Their award-winning Chocolate Euphoria is quite simply the best ice cream I've ever tasted. The texture is velvety, the flavor deep and complex without being overly sweet."
+                  </p>
+                  <div class="flex mt-6 items-center">
+                      <div class="flex text-yellow-400 mr-4">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                      </div>
+                      <span class="text-sm text-gray-500">June 15, 2023</span>
+                  </div>
+              </div>
+              
+              <!-- Testimonial 2 -->
+              <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg relative overflow-hidden">
+                  <div class="absolute top-4 right-4 text-6xl opacity-10 text-blue-500">
+                      <i class="fas fa-quote-right"></i>
+                  </div>
+                  <div class="flex items-center mb-6">
+                      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="w-16 h-16 rounded-full object-cover border-4 border-white shadow-md">
+                      <div class="ml-4">
+                          <h4 class="text-xl font-bold">Michael Chen</h4>
+                          <p class="text-gray-500">Judge, International Dairy Awards</p>
+                      </div>
+                  </div>
+                  <p class="text-gray-700 text-lg italic relative pl-6 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-gradient-to-b from-pink-500 to-blue-500 before:rounded-full">
+                      "As a competition judge, I taste hundreds of ice creams annually. FrostyDelights stands out for their innovative flavor combinations while maintaining perfect texture. Their awards are well-deserved."
+                  </p>
+                  <div class="flex mt-6 items-center">
+                      <div class="flex text-yellow-400 mr-4">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star-half-alt"></i>
+                      </div>
+                      <span class="text-sm text-gray-500">March 3, 2023</span>
+                  </div>
+              </div>
+              
+              <!-- Testimonial 3 -->
+              <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg relative overflow-hidden">
+                  <div class="absolute top-4 right-4 text-6xl opacity-10 text-purple-500">
+                      <i class="fas fa-quote-right"></i>
+                  </div>
+                  <div class="flex items-center mb-6">
+                      <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Emma Rodriguez" class="w-16 h-16 rounded-full object-cover border-4 border-white shadow-md">
+                      <div class="ml-4">
+                          <h4 class="text-xl font-bold">Emma Rodriguez</h4>
+                          <p class="text-gray-500">Loyal Customer Since 2018</p>
+                      </div>
+                  </div>
+                  <p class="text-gray-700 text-lg italic relative pl-6 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-gradient-to-b from-pink-500 to-blue-500 before:rounded-full">
+                      "I've tried every flavor they've ever made! The quality is unmatched, and you can taste why they win so many awards. The Cookie Dough Dream changed my ice cream standards forever."
+                  </p>
+                  <div class="flex mt-6 items-center">
+                      <div class="flex text-yellow-400 mr-4">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                      </div>
+                      <span class="text-sm text-gray-500">August 22, 2022</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+
+<!-- Newsletter Section with Freeze Points Offer -->
+<section class="py-16 bg-pink-500 text-white">
+    <div class="container mx-auto px-6 max-w-4xl text-center">
+        <h2 class="text-3xl font-bold mb-4">Join Our Sweet Community</h2>
+        <p class="text-xl mb-8">Subscribe for exclusive offers, new flavor announcements, and behind-the-scenes looks at our award-winning process.</p>
+        <div class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+            <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-lg focus:outline-none text-gray-800">
+            <button class="bg-white text-pink-500 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Subscribe & Get 10 Freeze Points!
+            </button>
+        </div>
+        <p class="text-sm mt-4 opacity-80">We respect your privacy. Unsubscribe at any time.</p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4">FrostyDelights</h3>
+                <p class="text-gray-400">Crafting award-winning ice cream experiences since 2010. Our passion for quality and innovation has earned us recognition worldwide.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="flavors.html" class="text-gray-400 hover:text-white transition-colors">Our Flavors</a></li>
+                    <li><a href="awards.html" class="text-gray-400 hover:text-white transition-colors">Awards</a></li>
+                    <li><a href="our-story.html" class="text-gray-400 hover:text-white transition-colors">Our Story</a></li>
+                    <li><a href="#find-us" class="text-gray-400 hover:text-white transition-colors">Find Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Support</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">FAQs</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Shipping Policy</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Returns</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact Support</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Legal</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <p>© 2023 FrostyDelights. All rights reserved. All awards and accolades displayed are trademarks of their respective organizations.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Flavor Match Quiz Logic
+    const quizOptions = document.querySelectorAll('.quiz-option');
+    const quizSteps = document.querySelectorAll('.quiz-step');
+    const quizResult = document.getElementById('quizResult');
+    const restartQuiz = document.getElementById('restartQuiz');
+    
+    let currentStep = 1;
+    let userAnswers = [];
+    
+    quizOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const value = this.getAttribute('data-value');
+            userAnswers.push(value);
+            
+            // Hide current step
+            document.getElementById(`quizStep${currentStep}`).classList.add('hidden');
+            
+            // Show next step or result
+            currentStep++;
+            if (currentStep <= 3) {
+                document.getElementById(`quizStep${currentStep}`).classList.remove('hidden');
+            } else {
+                showQuizResult();
+            }
+        });
+    });
+    
+    function showQuizResult() {
+        quizResult.classList.remove('hidden');
+        
+        // Determine result based on answers
+        let result = {};
+        if (userAnswers.includes('morning') && userAnswers.includes('creamy')) {
+            result = {
+                title: "Vanilla Dream",
+                description: "A smooth, creamy vanilla with a hint of honey - perfect for your morning treat!",
+                image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80"
+            };
+        } else if (userAnswers.includes('stressed') && userAnswers.includes('chunky')) {
+            result = {
+                title: "Cookie Dough Comfort",
+                description: "Packed with cookie dough chunks to satisfy your stress-eating cravings!",
+                image: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80"
+            };
+        } else if (userAnswers.includes('adventurous')) {
+            result = {
+                title: "Exotic Mango Chili",
+                description: "A daring blend of sweet mango with a spicy chili kick for the adventurous!",
+                image: "https://images.unsplash.com/photo-1551751299-1b51cab2694c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            };
+        } else {
+            result = {
+                title: "Classic Chocolate Euphoria",
+                description: "Our award-winning rich chocolate flavor that pleases everyone!",
+                image: "https://images.unsplash.com/photo-1488900128323-21503983a07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80"
+            };
+        }
+        
+        document.getElementById('resultTitle').textContent = result.title;
+        document.getElementById('resultDescription').textContent = result.description;
+        document.getElementById('resultImage').src = result.image;
+    }
+    
+    restartQuiz.addEventListener('click', function() {
+        quizResult.classList.add('hidden');
+        currentStep = 1;
+        userAnswers = [];
+        quizSteps.forEach(step => step.classList.add('hidden'));
+        document.getElementById('quizStep1').classList.remove('hidden');
+    });
+    
+    // Mystery Flavor Reveal
+    const revealMystery = document.getElementById('revealMystery');
+    const revealFlavor = document.getElementById('revealFlavor');
+    const mysteryContent = document.getElementById('mysteryContent');
+    const mysteryReveal = document.getElementById('mysteryReveal');
+    
+    revealMystery.addEventListener('click', function() {
+        // Scroll to mystery section
+        document.querySelector('.mystery-flavor').scrollIntoView({ behavior: 'smooth' });
+    });
+    
+    revealFlavor.addEventListener('click', function() {
+        mysteryContent.classList.add('hidden');
+        mysteryReveal.classList.remove('hidden');
+        
+        // Create confetti effect
+        createConfetti();
+    });
+    
+   // Enhanced Realistic Sundae Builder
+const sundaeOptions = document.querySelectorAll('.sundae-option');
+const buildSundaeBtn = document.getElementById('buildSundae');
+const orderSundaeBtn = document.getElementById('orderSundae');
+const sundaePreview = document.getElementById('sundaePreview');
+const sundaeDescription = document.getElementById('sundaeDescription');
+
+// Add event listeners
+sundaeOptions.forEach(option => {
+    option.addEventListener('change', updateSundaePreview);
+});
+
+buildSundaeBtn.addEventListener('click', () => {
+    updateSundaePreview();
+    orderSundaeBtn.classList.remove('hidden');
+    createConfetti();
+});
+
+function updateSundaePreview() {
+    // Clear previous toppings
+    document.querySelectorAll('.topping').forEach(el => el.remove());
+    
+    // Update base flavor with realistic ice cream texture
+    const base = document.querySelector('input[name="base"]:checked').value;
+    const baseElement = document.getElementById('sundaeBase');
+    
+    baseElement.className = 'absolute bottom-0 left-1/2 transform -translate-x-1/2 w-40 h-40 rounded-t-full origin-bottom';
+    
+    // Realistic ice cream textures
+    switch(base) {
+        case 'vanilla':
+            baseElement.classList.add('bg-amber-50', 'shadow-inner', 'texture-vanilla');
+            break;
+        case 'chocolate':
+            baseElement.classList.add('bg-amber-800', 'shadow-inner', 'texture-chocolate');
+            break;
+        case 'strawberry':
+            baseElement.classList.add('bg-pink-200', 'shadow-inner', 'texture-strawberry');
+            break;
+        case 'coffee':
+            baseElement.classList.add('bg-amber-600', 'shadow-inner', 'texture-coffee');
+            break;
+    }
+
+    // Update sauce with dripping effect
+    const sauce = document.querySelector('input[name="sauce"]:checked').value;
+    const sauceElement = document.getElementById('sundaeSauce');
+    
+    if (sauce !== 'none') {
+        sauceElement.classList.remove('hidden');
+        sauceElement.className = 'absolute bottom-32 left-1/2 transform -translate-x-1/2 w-44 h-16 rounded-b-lg origin-top';
+        
+        // Realistic sauce effects
+        switch(sauce) {
+            case 'chocolate':
+                sauceElement.classList.add('bg-amber-900', 'sauce-drip');
+                break;
+            case 'caramel':
+                sauceElement.classList.add('bg-amber-400', 'sauce-drip');
+                break;
+            case 'strawberry':
+                sauceElement.classList.add('bg-pink-500', 'sauce-drip');
+                break;
+        }
+        
+        // Add drips
+        addSauceDrips(sauce, sauceElement);
+    } else {
+        sauceElement.classList.add('hidden');
+    }
+
+    // Update whipped cream with realistic texture
+    const whippedElement = document.getElementById('sundaeWhipped');
+    if (document.querySelector('input[value="whipped"]').checked) {
+        whippedElement.classList.remove('hidden');
+        whippedElement.className = 'absolute bottom-40 left-1/2 transform -translate-x-1/2 w-48 h-12 rounded-full bg-white shadow-md whipped-cream';
+    } else {
+        whippedElement.classList.add('hidden');
+    }
+
+    // Update cherry
+    const cherryElement = document.getElementById('sundaeCherry');
+    if (document.querySelector('input[value="cherry"]').checked) {
+        cherryElement.classList.remove('hidden');
+        cherryElement.className = 'absolute top-20 left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-red-600 shadow-md cherry';
+    } else {
+        cherryElement.classList.add('hidden');
+    }
+
+    // Add realistic toppings
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+        if (['whipped', 'cherry'].includes(checkbox.value)) return;
+
+        switch(checkbox.value) {
+            case 'sprinkles':
+                addSprinkles();
+                break;
+            case 'nuts':
+                addNuts();
+                break;
+            case 'cookie':
+                addCookieCrumbles();
+                break;
+            case 'fruit':
+                addFreshFruit();
+                break;
+        }
+    });
+
+    // Update description
+    updateSundaeDescription(base, sauce);
+}
+
+// Helper functions for realistic effects
+function addSauceDrips(sauceType, container) {
+    // Add 3-5 drips randomly placed
+    const dripCount = 3 + Math.floor(Math.random() * 3);
+    const dripColors = {
+        'chocolate': 'bg-amber-900',
+        'caramel': 'bg-amber-400',
+        'strawberry': 'bg-pink-500'
+    };
+    
+    for (let i = 0; i < dripCount; i++) {
+        const drip = document.createElement('div');
+        const width = 4 + Math.random() * 4;
+        const height = 10 + Math.random() * 15;
+        const position = 30 + (Math.random() * 40);
+        
+        drip.className = `absolute bottom-32 left-1/2 transform -translate-x-1/2 ${dripColors[sauceType]} rounded-b-full`;
+        drip.style.width = `${width}px`;
+        drip.style.height = `${height}px`;
+        drip.style.left = `${position}%`;
+        drip.style.transform = `translateX(-50%) rotate(${-5 + Math.random() * 10}deg)`;
+        
+        container.parentNode.appendChild(drip);
+    }
+}
+
+function addSprinkles() {
+    // Add 15-20 sprinkles in random positions
+    const sprinkleCount = 15 + Math.floor(Math.random() * 6);
+    const colors = [
+        'bg-red-400', 'bg-blue-400', 'bg-yellow-300', 
+        'bg-green-400', 'bg-purple-400', 'bg-pink-400'
+    ];
+    
+    for (let i = 0; i < sprinkleCount; i++) {
+        const sprinkle = document.createElement('div');
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const size = 2 + Math.random() * 2;
+        const left = 30 + (Math.random() * 40);
+        const bottom = 24 + (Math.random() * 16);
+        const rotate = Math.random() * 360;
+        
+        sprinkle.className = `absolute ${color} rounded-sm`;
+        sprinkle.style.width = `${size}px`;
+        sprinkle.style.height = `${size * 3}px`;
+        sprinkle.style.left = `${left}%`;
+        sprinkle.style.bottom = `${bottom}%`;
+        sprinkle.style.transform = `rotate(${rotate}deg)`;
+        sprinkle.classList.add('topping');
+        
+        sundaePreview.appendChild(sprinkle);
+    }
+}
+
+function addNuts() {
+    // Add 5-8 nut pieces
+    const nutCount = 5 + Math.floor(Math.random() * 4);
+    const nutTypes = [
+        { class: 'bg-amber-700', size: 'w-6 h-4' },
+        { class: 'bg-amber-800', size: 'w-5 h-3' },
+        { class: 'bg-amber-900', size: 'w-7 h-5' }
+    ];
+    
+    for (let i = 0; i < nutCount; i++) {
+        const nut = document.createElement('div');
+        const type = nutTypes[Math.floor(Math.random() * nutTypes.length)];
+        const left = 30 + (Math.random() * 40);
+        const bottom = 20 + (Math.random() * 12);
+        const rotate = -30 + (Math.random() * 60);
+        
+        nut.className = `absolute ${type.class} ${type.size} rounded-lg transform`;
+        nut.style.left = `${left}%`;
+        nut.style.bottom = `${bottom}%`;
+        nut.style.transform = `rotate(${rotate}deg)`;
+        nut.classList.add('topping', 'nut');
+        
+        sundaePreview.appendChild(nut);
+    }
+}
+
+function addCookieCrumbles() {
+    // Add 4-6 cookie pieces
+    const cookieCount = 4 + Math.floor(Math.random() * 3);
+    
+    for (let i = 0; i < cookieCount; i++) {
+        const cookie = document.createElement('div');
+        const size = 6 + Math.random() * 6;
+        const left = 30 + (Math.random() * 40);
+        const bottom = 24 + (Math.random() * 12);
+        const rotate = Math.random() * 360;
+        const darkness = 200 + Math.floor(Math.random() * 200);
+        
+        cookie.className = 'absolute rounded-sm transform';
+        cookie.style.width = `${size}px`;
+        cookie.style.height = `${size * 0.7}px`;
+        cookie.style.left = `${left}%`;
+        cookie.style.bottom = `${bottom}%`;
+        cookie.style.transform = `rotate(${rotate}deg)`;
+        cookie.style.backgroundColor = `rgb(${darkness}, ${darkness-20}, ${darkness-40})`;
+        cookie.classList.add('topping', 'cookie');
+        
+        sundaePreview.appendChild(cookie);
+    }
+}
+
+function addFreshFruit() {
+    // Add 3-5 fruit pieces
+    const fruitCount = 3 + Math.floor(Math.random() * 3);
+    const fruits = [
+        { class: 'bg-red-500', size: 'w-5 h-5' }, // Strawberry
+        { class: 'bg-blue-500', size: 'w-4 h-4' }, // Blueberry
+        { class: 'bg-purple-600', size: 'w-5 h-5' } // Blackberry
+    ];
+    
+    for (let i = 0; i < fruitCount; i++) {
+        const fruit = document.createElement('div');
+        const type = fruits[Math.floor(Math.random() * fruits.length)];
+        const left = 30 + (Math.random() * 40);
+        const bottom = 28 + (Math.random() * 12);
+        
+        fruit.className = `absolute ${type.class} ${type.size} rounded-full`;
+        fruit.style.left = `${left}%`;
+        fruit.style.bottom = `${bottom}%`;
+        fruit.classList.add('topping', 'fruit');
+        
+        sundaePreview.appendChild(fruit);
+    }
+}
+
+function updateSundaeDescription(base, sauce) {
+    const baseNames = {
+        'vanilla': 'Creamy Vanilla',
+        'chocolate': 'Rich Chocolate',
+        'strawberry': 'Sweet Strawberry',
+        'coffee': 'Mocha Coffee'
+    };
+    
+    const sauceNames = {
+        'chocolate': 'Decadent Chocolate',
+        'caramel': 'Golden Caramel',
+        'strawberry': 'Tangy Strawberry',
+        'none': 'no sauce'
+    };
+    
+    const toppingsList = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+        .filter(checkbox => !['whipped', 'cherry'].includes(checkbox.value))
+        .map(checkbox => {
+            const names = {
+                'sprinkles': 'Rainbow Sprinkles',
+                'nuts': 'Crushed Nuts',
+                'cookie': 'Cookie Crumbles',
+                'fruit': 'Fresh Fruit'
+            };
+            return names[checkbox.value];
+        });
+    
+    let description = `A delicious ${baseNames[base]} sundae`;
+    description += sauce !== 'none' ? ` with ${sauceNames[sauce]} sauce` : '';
+    
+    if (toppingsList.length > 0) {
+        description += ` topped with ${toppingsList.join(', ')}`;
+    }
+    
+    if (document.querySelector('input[value="whipped"]').checked) {
+        description += ', whipped cream';
+    }
+    
+    if (document.querySelector('input[value="cherry"]').checked) {
+        description += ', and a cherry on top';
+    }
+    
+    sundaeDescription.innerHTML = `
+        <h3 class="text-xl font-bold text-gray-800">Your Custom Creation</h3>
+        <p class="text-gray-600 mt-2">${description}!</p>
+    `;
+}
+document.addEventListener('DOMContentLoaded', function() {
+  // Prize configuration
+  const prizes = [
+      { text: "10% Off", code: "SPIN10", color: "bg-pink-500" },
+      { text: "Free Topping", code: "TOPPING", color: "bg-blue-500" },
+      { text: "$2 Off", code: "SPIN2", color: "bg-yellow-500" },
+      { text: "Free Cone", code: "FREECONE", color: "bg-green-500" },
+      { text: "Spin Again", code: "TRYAGAIN", color: "bg-purple-500" },
+      { text: "15% Off", code: "SPIN15", color: "bg-red-500" }
+  ];
+  
+  // Create wheel segments
+  const wheel = document.getElementById('wheel');
+  const segmentAngle = 360 / prizes.length;
+  
+  prizes.forEach((prize, index) => {
+      const segment = document.createElement('div');
+      segment.className = `wheel-segment absolute w-full h-full`;
+      segment.style.transform = `rotate(${index * segmentAngle}deg)`;
+      segment.style.transformOrigin = 'center';
+      segment.innerHTML = `
+          <div class="absolute top-0 left-1/2 w-1/2 h-1/2 origin-bottom-left" style="transform: rotate(${segmentAngle}deg); overflow: hidden;">
+              <div class="absolute bottom-0 left-0 w-full h-full ${prize.color}" style="transform: skewY(-${90 - segmentAngle}deg);">
+                  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xs font-bold" style="transform: rotate(${segmentAngle/2}deg) translateY(-40px); width: 60px; text-align: center;">
+                      ${prize.text}
+                  </div>
+              </div>
+          </div>
+      `;
+      wheel.appendChild(segment);
+  });
+  
+  // Spin functionality
+  const spinButton = document.getElementById('spinButton');
+  const spinResult = document.getElementById('spinResult');
+  const prizeText = document.getElementById('prizeText');
+  const prizeCode = document.getElementById('prizeCode');
+  const closeResult = document.getElementById('closeResult');
+  
+  let isSpinning = false;
+  let currentRotation = 0;
+  
+  spinButton.addEventListener('click', function() {
+      if (isSpinning) return;
+      isSpinning = true;
+      
+      // Hide previous result
+      spinResult.classList.add('hidden');
+      
+      // Random spin (5-7 full rotations plus segment)
+      const fullRotations = 5 + Math.floor(Math.random() * 3);
+      const prizeIndex = Math.floor(Math.random() * prizes.length);
+      const extraRotation = prizeIndex * segmentAngle;
+      const totalRotation = currentRotation + (fullRotations * 360) + extraRotation;
+      
+      // Apply spin animation
+      wheel.style.transition = `transform ${4 + fullRotations}s cubic-bezier(0.17, 0.67, 0.12, 0.99)`;
+      wheel.style.transform = `rotate(${-totalRotation}deg)`;
+      currentRotation = totalRotation % 360;
+      
+      // Show result when animation completes
+      setTimeout(() => {
+          isSpinning = false;
+          wheel.style.transition = 'none';
+          
+          const prize = prizes[prizeIndex];
+          prizeText.textContent = prize.text;
+          prizeCode.textContent = prize.code;
+          spinResult.classList.remove('hidden');
+          
+          // Special case for "Spin Again"
+          if (prize.text === "Spin Again") {
+              setTimeout(() => {
+                  spinResult.classList.add('hidden');
+                  spinButton.click(); // Auto-spin again
+              }, 1500);
+          }
+      }, (4 + fullRotations) * 1000);
+  });
+  
+  closeResult.addEventListener('click', function() {
+      spinResult.classList.add('hidden');
+  });
+});
+
+    // Timeline Functions
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all timeline buttons
+        const timelineButtons = document.querySelectorAll('.timeline-dot');
+        const timelineProgress = document.getElementById('timelineProgress');
+        const defaultContent = document.getElementById('defaultContent');
+        const contentSections = {
+            'ancient': document.getElementById('ancientContent'),
+            'medieval': document.getElementById('medievalContent'),
+            'colonial': document.getElementById('colonialContent'),
+            'industrial': document.getElementById('industrialContent'),
+            'modern': document.getElementById('modernContent')
+        };
+        
+        // Add click event to each timeline button
+        timelineButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const year = this.getAttribute('data-year');
+                const position = this.getAttribute('data-position');
+                
+                // Update progress bar
+                timelineProgress.style.width = position + '%';
+                
+                // Update active state
+                timelineButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Hide default content and all other content sections
+                defaultContent.classList.add('hidden');
+                Object.values(contentSections).forEach(section => {
+                    section.classList.add('hidden');
+                });
+                
+                // Show selected content
+                contentSections[year].classList.remove('hidden');
+            });
+        });
+        
+        // Initialize with first item active
+        timelineButtons[0].click();
+    });
+    
+    // Confetti Effect
+    function createConfetti() {
+        const container = document.getElementById('confettiContainer');
+        container.innerHTML = '';
+        container.classList.remove('hidden');
+        
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            
+            // Random position
+            const xPos = Math.random() * 100;
+            const yPos = Math.random() * 100 - 100;
+            
+            // Random color
+            const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#A5FFD6', '#FFAFCC'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Random size
+            const size = Math.random() * 10 + 5;
+            
+            // Random shape
+            const shapes = ['rounded-full', 'rounded-none', 'rounded-lg'];
+            const shape = shapes[Math.floor(Math.random() * shapes.length)];
+            
+            // Apply styles
+            confetti.style.left = `${xPos}%`;
+            confetti.style.top = `${yPos}%`;
+            confetti.style.backgroundColor = color;
+            confetti.style.width = `${size}px`;
+            confetti.style.height = `${size}px`;
+            confetti.classList.add(shape);
+            
+            // Animation
+            const animationDuration = Math.random() * 3 + 2;
+            confetti.style.animation = `fall ${animationDuration}s linear forwards`;
+            
+            // Add to container
+            container.appendChild(confetti);
+        }
+        
+        // Hide container after animation
+        setTimeout(() => {
+            container.classList.add('hidden');
+        }, 3000);
+    }
+    
+    // Add fall animation to style
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Testimonial slider functionality
+    let currentTestimonial = 0;
+    const testimonialCount = document.querySelectorAll('.testimonial-slide').length;
+    
+    function scrollTestimonials(direction) {
+        const slider = document.getElementById('testimonialSlider');
+        currentTestimonial = (currentTestimonial + direction + testimonialCount) % testimonialCount;
+        slider.scrollTo({
+            left: currentTestimonial * slider.offsetWidth,
+            behavior: 'smooth'
+        });
+    }
+    
+    // FAQ toggle functionality
+    function toggleFAQ(button) {
+        const answer = button.nextElementSibling;
+        const icon = button.querySelector('i');
+        
+        answer.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+    }
+    
+    // Initialize with first testimonial visible
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-rotate testimonials
+        setInterval(() => {
+            scrollTestimonials(1);
+        }, 5000);
+        
+        // Add slide-up animation to elements
+        const elements = document.querySelectorAll('.slide-up');
+        elements.forEach((el, index) => {
+            el.style.animationDelay = `${index * 0.2}s`;
+        });
+    });
+</script></body> </html>
+																
+																

@@ -1,0 +1,997 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>FrostyDelights | Artisan Ice Cream</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        .flavor-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .flavor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+        .flavor-card.active {
+            border: 3px solid var(--primary);
+            background: linear-gradient(135deg, #FFF5F5 0%, white 100%);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .recipe-book {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 450px;
+            height: 100vh;
+            background: white;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+            transition: right 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        .recipe-book.active {
+            right: 0;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .ingredient-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .ingredient-icon:hover {
+            transform: scale(1.1);
+        }
+        .process-step {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 30px;
+        }
+        .process-step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--secondary);
+        }
+        .step-number {
+            position: absolute;
+            left: -15px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .nutrition-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: #e0e0e0;
+            overflow: hidden;
+        }
+        .nutrition-fill {
+            height: 100%;
+            background: var(--secondary);
+        }
+        .flavor-image {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .flavor-image:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+        .gallery-thumb {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .gallery-thumb:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        /* Animation classes */
+        .pop-in {
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .pop-out {
+            animation: popOut 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes popOut {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0; }
+        }
+        /* Payment modal */
+        .payment-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            z-index: 1100;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        .payment-modal.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .payment-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1099;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .payment-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Payment Modal -->
+    <div class="payment-overlay" id="paymentOverlay"></div>
+    <div class="payment-modal" id="paymentModal">
+        <div class="p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Complete Your Order</h2>
+                <button onclick="togglePaymentModal()" class="text-gray-400 hover:text-gray-600 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="flex items-center space-x-4 mb-6 p-4 bg-orange-50 rounded-xl">
+                <img id="payment-flavor-image" src="https://i.ibb.co/0qX8pXs/chocolate.png" alt="Flavor" class="w-16 h-16 object-contain">
+                <div>
+                    <h3 class="font-bold text-gray-800" id="payment-flavor-name">Chocolate Euphoria</h3>
+                    <p class="text-orange-500 font-bold" id="payment-flavor-price">$4.99</p>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-medium mb-3 text-gray-700">Payment Details</h3>
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-4 rounded-xl">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+                        <input type="text" placeholder="1234 5678 9012 3456" class="w-full bg-transparent border-none focus:ring-0">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-xl">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+                            <input type="text" placeholder="MM/YY" class="w-full bg-transparent border-none focus:ring-0">
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                            <input type="text" placeholder="123" class="w-full bg-transparent border-none focus:ring-0">
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Name on Card</label>
+                        <input type="text" placeholder="John Smith" class="w-full bg-transparent border-none focus:ring-0">
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="processPayment()" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 mb-4">
+                Pay Now
+            </button>
+            
+            <div class="text-center text-sm text-gray-500">
+                <i class="fas fa-lock mr-2"></i> Your payment is securely encrypted
+            </div>
+        </div>
+    </div>
+    
+    <!-- Payment Success Modal -->
+    <div class="payment-modal" id="successModal">
+        <div class="p-8 text-center">
+            <div class="flex justify-center mb-6">
+                <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-check text-green-500 text-4xl"></i>
+                </div>
+            </div>
+            
+            <h2 class="text-3xl font-bold text-gray-800 mb-3">Order Confirmed!</h2>
+            <p class="text-gray-600 mb-6">Your delicious <span id="success-flavor-name">Chocolate Euphoria</span> is on its way to you.</p>
+            
+            <div class="bg-orange-50 rounded-xl p-6 mb-6">
+                <h3 class="font-bold text-gray-800 mb-2">Order Summary</h3>
+                <div class="flex justify-between mb-1">
+                    <span class="text-gray-600">Item</span>
+                    <span class="font-medium" id="success-item-name">Chocolate Euphoria</span>
+                </div>
+                <div class="flex justify-between mb-1">
+                    <span class="text-gray-600">Price</span>
+                    <span class="font-medium" id="success-item-price">$4.99</span>
+                </div>
+                <div class="flex justify-between mb-1">
+                    <span class="text-gray-600">Delivery</span>
+                    <span class="font-medium">FREE</span>
+                </div>
+                <div class="border-t border-orange-200 my-2"></div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Total</span>
+                    <span class="font-bold text-orange-500" id="success-total-price">$4.99</span>
+                </div>
+            </div>
+            
+            <p class="text-sm text-gray-500 mb-6">We've sent the receipt to your email. Enjoy your FrostyDelights!</p>
+            
+            <button onclick="closeSuccessModal()" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <!-- Recipe Book -->
+    <div class="recipe-book" id="recipeBook">
+        <div class="p-8">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800" id="recipe-title">Chocolate Dream</h2>
+                    <p class="text-gray-500" id="recipe-subtitle">Artisan Recipe & Nutrition Guide</p>
+                </div>
+                <button onclick="toggleRecipeBook()" class="text-gray-400 hover:text-gray-600 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mb-10">
+                <div class="relative h-64 rounded-2xl overflow-hidden mb-6">
+                    <img id="recipe-main-image" src="https://i.ibb.co/0qX8pXs/chocolate.png" alt="Recipe Image" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-white rounded-full p-2">
+                                <i class="fas fa-clock text-orange-500"></i>
+                            </div>
+                            <span class="text-white font-medium" id="prep-time">20 mins prep</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4 mb-8">
+                    <div class="bg-white p-4 rounded-xl shadow-sm text-center">
+                        <div class="text-orange-500 mb-2">
+                            <i class="fas fa-fire-alt text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-700">Calories</h4>
+                        <p class="text-gray-500" id="calories">250 kcal</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm text-center">
+                        <div class="text-blue-500 mb-2">
+                            <i class="fas fa-utensils text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-700">Servings</h4>
+                        <p class="text-gray-500">4 portions</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm text-center">
+                        <div class="text-green-500 mb-2">
+                            <i class="fas fa-seedling text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-700">Difficulty</h4>
+                        <p class="text-gray-500">Easy</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-10">
+                <h3 class="text-xl font-bold mb-4 text-gray-800 flex items-center">
+                    <i class="fas fa-pepper-hot text-orange-500 mr-3"></i>
+                    Ingredients
+                </h3>
+                <div class="flex flex-wrap gap-3 mb-6" id="ingredient-icons">
+                    <!-- Dynamically filled -->
+                </div>
+                <ul class="space-y-3" id="ingredient-list">
+                    <!-- Dynamically filled -->
+                </ul>
+            </div>
+
+            <div class="mb-10">
+                <h3 class="text-xl font-bold mb-4 text-gray-800 flex items-center">
+                    <i class="fas fa-mortar-pestle text-blue-500 mr-3"></i>
+                    Preparation Steps
+                </h3>
+                <div class="space-y-6" id="process-steps">
+                    <!-- Dynamically filled -->
+                </div>
+            </div>
+
+            <div class="mb-10">
+                <h3 class="text-xl font-bold mb-4 text-gray-800 flex items-center">
+                    <i class="fas fa-chart-pie text-green-500 mr-3"></i>
+                    Nutritional Information
+                </h3>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Protein</span>
+                                <span class="font-bold" id="protein">5g</span>
+                            </div>
+                            <div class="nutrition-bar">
+                                <div class="nutrition-fill" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Carbs</span>
+                                <span class="font-bold" id="carbs">25g</span>
+                            </div>
+                            <div class="nutrition-bar">
+                                <div class="nutrition-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Fat</span>
+                                <span class="font-bold" id="fat">15g</span>
+                            </div>
+                            <div class="nutrition-bar">
+                                <div class="nutrition-fill" style="width: 50%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Sugar</span>
+                                <span class="font-bold" id="sugar">18g</span>
+                            </div>
+                            <div class="nutrition-bar">
+                                <div class="nutrition-fill" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500">* Percent Daily Values are based on a 2000 calorie diet.</p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-gray-800 flex items-center">
+                    <i class="fas fa-images text-purple-500 mr-3"></i>
+                    Flavor Gallery
+                </h3>
+                <div class="grid grid-cols-3 gap-3" id="flavor-gallery">
+                    <!-- Dynamically filled -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <header class="container mx-auto px-6 py-8">
+        <div class="flex justify-between items-center">
+            <div class="text-4xl font-bold text-orange-500 flex items-center">
+                <i class="fas fa-ice-cream mr-3"></i>
+                FrostyDelights
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a class="nav-link text-gray-600 hover:text-gray-900" href="index.html">Home</a>
+                <a class="nav-link text-gray-600 hover:text-gray-900 active" href="flavors.html">Flavors</a>
+                <a class="nav-link text-gray-600 hover:text-gray-900" href="our-story.html">Our Story</a>
+                <a class="nav-link text-gray-600 hover:text-gray-900" href="awards.html">Awards</a>
+                <button onclick="toggleRecipeBook()" class="flex items-center text-orange-500 hover:text-orange-600">
+                    <i class="fas fa-book-open mr-2"></i> Recipe Book
+                </button>
+            </nav>
+            <button class="md:hidden text-gray-600">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 pb-20">
+        <div class="flex flex-col lg:flex-row gap-12">
+            <!-- Main Flavor Display -->
+            <div class="lg:w-1/2">
+                <div class="relative">
+                    <div class="absolute -left-20 -top-20 w-64 h-64 bg-orange-100 rounded-full opacity-20"></div>
+                    <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-blue-100 rounded-full opacity-20"></div>
+                    
+                    <div class="relative z-10 text-center lg:text-left mb-10">
+                        <h1 class="text-5xl font-bold mb-4 text-gray-800">Discover Our <span class="text-orange-500" id="current-flavor">Chocolate</span> Delight</h1>
+                        <p class="text-xl text-gray-600 mb-8 max-w-lg" id="slogan">Indulge in the rich, creamy delight of our artisanal Chocolate Ice Cream, crafted with premium cocoa beans.</p>
+                        
+                        <div class="flex flex-wrap gap-4 mb-10">
+                            <button onclick="showPaymentModal()" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 flex items-center">
+                                <i class="fas fa-shopping-cart mr-3"></i>
+                                <span id="order-text">Order Now - $4.99</span>
+                            </button>
+                            <button onclick="toggleRecipeBook()" class="bg-white hover:bg-gray-100 text-gray-800 px-8 py-4 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 flex items-center">
+                                <i class="fas fa-book-open mr-3"></i>
+                                View Recipe
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 flex justify-center lg:justify-start">
+                        <div class="relative">
+                            <img id="main-image" src="https://i.ibb.co/0qX8pXs/chocolate.png" alt="Featured Flavor" class="flavor-image w-96 h-96 object-contain floating">
+                            <img id="splash-image" src="https://i.ibb.co/nLrW8nY/a5bdfe6754d27783a7706ef13599bde0-Photoroom.png" alt="Splash" class="absolute -bottom-20 -left-20 w-64 h-64 opacity-90">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flavor Selection -->
+            <div class="lg:w-1/2">
+                <h2 class="text-3xl font-bold mb-8 text-gray-800 flex items-center">
+                    <i class="fas fa-star text-yellow-400 mr-3"></i>
+                    Our Signature Flavors
+                </h2>
+                
+                <div class="space-y-6">
+                    <!-- Chocolate -->
+                    <div class="flavor-card active p-6 cursor-pointer" onclick="changeFlavor('chocolate', this)">
+                        <div class="flex items-center">
+                            <img src="https://i.ibb.co/0qX8pXs/chocolate.png" alt="Chocolate" class="w-24 h-24 object-contain mr-6">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-2xl font-bold text-gray-800">Chocolate Euphoria</h3>
+                                    <span class="text-xl font-bold text-orange-500">$4.99</span>
+                                </div>
+                                <p class="text-gray-600 mb-3">Rich, velvety chocolate made with single-origin cocoa beans</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Creamy</span>
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Vegan Option</span>
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Antioxidants</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cookie Dough -->
+                    <div class="flavor-card p-6 cursor-pointer" onclick="changeFlavor('cookie-dough', this)">
+                        <div class="flex items-center">
+                            <img src="https://i.ibb.co/kBZKLjq/cookiedough.png" alt="Cookie Dough" class="w-24 h-24 object-contain mr-6">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-2xl font-bold text-gray-800">Cookie Dough Bliss</h3>
+                                    <span class="text-xl font-bold text-orange-500">$5.49</span>
+                                </div>
+                                <p class="text-gray-600 mb-3">Vanilla bean ice cream with chunks of edible cookie dough</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Crunchy</span>
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Best Seller</span>
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Gluten-Free</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mint -->
+                    <div class="flavor-card p-6 cursor-pointer" onclick="changeFlavor('mint', this)">
+                        <div class="flex items-center">
+                            <img src="https://i.ibb.co/HnBGbK3/mint.png" alt="Mint" class="w-24 h-24 object-contain mr-6">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-2xl font-bold text-gray-800">Mint Fresh</h3>
+                                    <span class="text-xl font-bold text-orange-500">$4.79</span>
+                                </div>
+                                <p class="text-gray-600 mb-3">Refreshing peppermint with dark chocolate chips</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Refreshing</span>
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Digestive</span>
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Low Sugar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Strawberry -->
+                    <div class="flavor-card p-6 cursor-pointer" onclick="changeFlavor('strawberry', this)">
+                        <div class="flex items-center">
+                            <img src="https://i.ibb.co/hCDqwH9/strawberry.png" alt="Strawberry" class="w-24 h-24 object-contain mr-6">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-2xl font-bold text-gray-800">Strawberry Fields</h3>
+                                    <span class="text-xl font-bold text-orange-500">$4.99</span>
+                                </div>
+                                <p class="text-gray-600 mb-3">Sweet strawberries swirled in creamy vanilla</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Fruity</span>
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Vitamin C</span>
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Seasonal</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vanilla -->
+                    <div class="flavor-card p-6 cursor-pointer" onclick="changeFlavor('vanilla', this)">
+                        <div class="flex items-center">
+                            <img src="https://i.ibb.co/ySRbZmQ/vannila.png" alt="Vanilla" class="w-24 h-24 object-contain mr-6">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-2xl font-bold text-gray-800">Vanilla Dream</h3>
+                                    <span class="text-xl font-bold text-orange-500">$4.49</span>
+                                </div>
+                                <p class="text-gray-600 mb-3">Madagascar bourbon vanilla with a creamy finish</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Classic</span>
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Award Winning</span>
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Keto Friendly</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Flavor data
+        const flavors = {
+            'chocolate': {
+                name: 'Chocolate Euphoria',
+                image: 'https://i.ibb.co/0qX8pXs/chocolate.png',
+                splash: 'https://i.ibb.co/nLrW8nY/a5bdfe6754d27783a7706ef13599bde0-Photoroom.png',
+                price: '$4.99',
+                slogan: 'Indulge in the rich, creamy delight of our artisanal Chocolate Ice Cream, crafted with premium cocoa beans.',
+                ingredients: [
+                    { name: 'Organic Cocoa', icon: 'https://5.imimg.com/data5/SELLER/Default/2021/10/VT/KO/EC/138060853/organic-cocoa-powder-500x500.jpg' },
+                    { name: 'Fresh Cream', icon: 'https://blazekaro.com/wp-content/uploads/2024/02/shopping-20.webp' },
+                    { name: 'Cane Sugar', icon: 'https://lirp.cdn-website.com/cbf48001/dms3rep/multi/opt/shutterstock_2321693475-640w.jpg' },
+                    { name: 'Vanilla Extract', icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStErWGnYBQy1P14QL62z0WbNdBsmjt-1UtmQ&s' },
+                    { name: 'Sea Salt', icon: 'https://zamaorganics.com/cdn/shop/files/Untitleddesign-2024-01-11T152148.793.png?v=1739004296&width=1080' }
+                ],
+                steps: [
+                    'Roast and grind premium cocoa beans to create rich chocolate paste',
+                    'Slowly blend with fresh organic cream in our copper kettles',
+                    'Add just the right amount of organic cane sugar',
+                    'Churn for 25 minutes at precisely -5°C',
+                    'Pack in eco-friendly containers and quick-freeze'
+                ],
+                nutrition: {
+                    calories: '250 kcal',
+                    protein: '5g',
+                    carbs: '25g',
+                    fat: '15g',
+                    sugar: '18g'
+                },
+                gallery: [
+                    'https://i.ibb.co/0qX8pXs/chocolate.png',
+                    'https://tarateaspoon.com/wp-content/uploads/2021/06/chocolate-ice-cream-cones-sq.jpeg',
+                    'https://veenaazmanov.com/wp-content/uploads/2017/07/Homemade-Chocolate-Ice-Cream-3.jpg'
+                ]
+            },
+            'cookie-dough': {
+                name: 'Cookie Dough Bliss',
+                image: 'https://i.ibb.co/kBZKLjq/cookiedough.png',
+                splash: 'https://i.ibb.co/JzhTk6H/chocolate-splash.png',
+                price: '$5.49',
+                slogan: 'Experience the perfect blend of creamy vanilla and chunks of edible cookie dough in every scoop.',
+                ingredients: [
+                    { name: 'Vanilla Beans', icon: 'https://robustmadagascar.com/wp-content/uploads/2023/12/shutterstock_2320548391-1-min-3.jpg' },
+                    { name: 'Cookie Dough', icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtzE5J-lCVMXPTXFLyAoZigen6lIJDPoxZyQ&s' },
+                    { name: 'Brown Sugar', icon: 'https://organicmandya.com/cdn/shop/files/Brownsugar_844d344f-2977-4b35-899a-6c70995a7f10.jpg?v=1719136198' },
+                    { name: 'Fresh Eggs', icon: 'https://www.licious.in/blog/wp-content/uploads/2021/01/eggs-online-2-750x750.jpg' },
+                    { name: 'Chocolate Chips', icon: 'https://www.simplydifferent.in/cdn/shop/products/chocolate-chips-500x500.jpg?v=1626442846' }
+                ],
+                steps: [
+                    'Prepare our signature edible cookie dough with heat-treated flour',
+                    'Make vanilla bean ice cream base with fresh dairy',
+                    'Fold in generous chunks of cookie dough',
+                    'Add organic chocolate chips for extra texture',
+                    'Slow churn to perfect consistency'
+                ],
+                nutrition: {
+                    calories: '280 kcal',
+                    protein: '4g',
+                    carbs: '30g',
+                    fat: '16g',
+                    sugar: '20g'
+                },
+                gallery: [
+                    'https://i.ibb.co/kBZKLjq/cookiedough.png',
+                    'https://www.modernhoney.com/wp-content/uploads/2023/08/Chocolate-Chip-Cookie-Dough-Ice-Cream-1.jpg',
+                    'https://images.squarespace-cdn.com/content/v1/55370317e4b047f1053ee431/1501013360057-9T2DOG0S8RD1R5RZXE98/ke17ZwdGBToddI8pDm48kChcgNkBHxAhQLG_HrVJTqMUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8PaoYXhp6HxIwZIk7-Mi3Tsic-L2IOPH3Dwrhl-Ne3Z2G2nG78cB6znTBlzeZlKrqBK8ZZ49rh2zWA1N5aJHezykL3r1G49e-3ZnDLNRdB_t/chocolatechipcookiedough.jpg?format=original'
+                ]
+            },
+            'mint': {
+                name: 'Mint Fresh',
+                image: 'https://i.ibb.co/HnBGbK3/mint.png',
+                splash: 'https://i.ibb.co/gyCmRbd/mint-slash.png',
+                price: '$4.79',
+                slogan: 'Refresh yourself with the cool, invigorating taste of our peppermint ice cream with dark chocolate chips.',
+                ingredients: [
+                    { name: 'Peppermint', icon: 'https://i.ibb.co/0nQqY7Z/mint-leaf.png' },
+                    { name: 'Dark Chocolate', icon: 'https://i.ibb.co/7Q3y5z0/cocoa.png' },
+                    { name: 'Fresh Milk', icon: 'https://i.ibb.co/0jq3YyX/milk.png' },
+                    { name: 'Honey', icon: 'https://i.ibb.co/4F9q4J1/honey.png' },
+                    { name: 'Spinach Extract', icon: 'https://i.ibb.co/8X9JQYF/spinach.png' }
+                ],
+                steps: [
+                    'Extract fresh peppermint leaves for natural flavor',
+                    'Blend with organic milk and cream',
+									                'Add dark chocolate chips from sustainable sources',
+                'Use natural spinach extract for color',
+                'Churn at low temperature to preserve freshness'
+            ],
+            nutrition: {
+                calories: '220 kcal',
+                protein: '3g',
+                carbs: '24g',
+                fat: '12g',
+                sugar: '15g'
+            },
+            gallery: [
+                'https://i.ibb.co/HnBGbK3/mint.png',
+                'https://i.ibb.co/0nQqY7Z/mint2.jpg',
+                'https://i.ibb.co/0mXJQ0S/mint3.jpg'
+            ]
+        },
+        'strawberry': {
+            name: 'Strawberry Fields',
+            image: 'https://i.ibb.co/hCDqwH9/strawberry.png',
+            splash: 'https://i.ibb.co/jk5tpxX/a4a056be7de363dcc2bb46c88d83e83c-Photoroom.png',
+            price: '$4.99',
+            slogan: 'Enjoy the sweet, tangy burst of real strawberries in our creamy, dreamy strawberry ice cream.',
+            ingredients: [
+                { name: 'Fresh Strawberries', icon: 'https://i.ibb.co/8X9JQYF/strawberry.png' },
+                { name: 'Organic Cream', icon: 'https://i.ibb.co/0jq3YyX/cream.png' },
+                { name: 'Vanilla', icon: 'https://i.ibb.co/6n7qQ1G/vanilla.png' },
+                { name: 'Lemon Juice', icon: 'https://i.ibb.co/4W2P2h6/lemon.png' },
+                { name: 'Maple Syrup', icon: 'https://i.ibb.co/4F9q4J1/maple.png' }
+            ],
+            steps: [
+                'Hand-pick ripe strawberries at peak season',
+                'Macerate with a touch of lemon juice',
+                'Blend with our creamy vanilla base',
+                'Swirl in whole strawberry pieces',
+                'Slow freeze to preserve fresh fruit flavor'
+            ],
+            nutrition: {
+                calories: '200 kcal',
+                protein: '3g',
+                carbs: '22g',
+                fat: '10g',
+                sugar: '16g'
+            },
+            gallery: [
+                'https://i.ibb.co/hCDqwH9/strawberry.png',
+                'https://i.ibb.co/0nQqY7Z/strawberry2.jpg',
+                'https://i.ibb.co/0mXJQ0S/strawberry3.jpg'
+            ]
+        },
+        'vanilla': {
+            name: 'Vanilla Dream',
+            image: 'https://i.ibb.co/ySRbZmQ/vannila.png',
+            splash: 'https://i.ibb.co/zQQ0LD7/vannila-splash.png',
+            price: '$4.49',
+            slogan: 'Savor the classic, timeless taste of our Madagascar bourbon vanilla ice cream, made with real vanilla beans.',
+            ingredients: [
+                { name: 'Vanilla Beans', icon: 'https://i.ibb.co/6n7qQ1G/vanilla.png' },
+                { name: 'Fresh Cream', icon: 'https://i.ibb.co/0jq3YyX/cream.png' },
+                { name: 'Organic Milk', icon: 'https://i.ibb.co/0jq3YyX/milk.png' },
+                { name: 'Egg Yolks', icon: 'https://i.ibb.co/8X9JQYF/egg.png' },
+                { name: 'Raw Sugar', icon: 'https://i.ibb.co/4F9q4J1/sugar.png' }
+            ],
+            steps: [
+                'Split and scrape vanilla beans by hand',
+                'Steep in warm milk for 24 hours',
+                'Create custard base with fresh egg yolks',
+                'Slow churn in small batches',
+                'Pack immediately to preserve freshness'
+            ],
+            nutrition: {
+                calories: '210 kcal',
+                protein: '4g',
+                carbs: '23g',
+                fat: '11g',
+                sugar: '17g'
+            },
+            gallery: [
+                'https://i.ibb.co/ySRbZmQ/vannila.png',
+                'https://i.ibb.co/0nQqY7Z/vanilla2.jpg',
+                'https://i.ibb.co/0mXJQ0S/vanilla3.jpg'
+            ]
+        }
+    };
+
+    // Current flavor
+    let currentFlavor = 'chocolate';
+
+    // Toggle recipe book
+    function toggleRecipeBook() {
+        const recipeBook = document.getElementById('recipeBook');
+        const overlay = document.getElementById('overlay');
+        
+        recipeBook.classList.toggle('active');
+        overlay.classList.toggle('active');
+        
+        // Update recipe book content when opening
+        if (recipeBook.classList.contains('active')) {
+            updateRecipeBook();
+        }
+    }
+
+    // Change flavor with animation
+    function changeFlavor(flavor, element) {
+        currentFlavor = flavor;
+        const flavorData = flavors[flavor];
+        
+        // Start animation
+        const mainImage = document.getElementById('main-image');
+        const splashImage = document.getElementById('splash-image');
+        
+        mainImage.classList.remove('floating');
+        mainImage.classList.add('pop-out');
+        splashImage.classList.add('pop-out');
+        
+        setTimeout(() => {
+            // Update content
+            mainImage.src = flavorData.image;
+            splashImage.src = flavorData.splash;
+            document.getElementById('slogan').textContent = flavorData.slogan;
+            document.getElementById('order-text').textContent = `Order Now - ${flavorData.price}`;
+            document.getElementById('current-flavor').textContent = flavorData.name.split(' ')[0];
+            
+            // Animate back in
+            mainImage.classList.remove('pop-out');
+            mainImage.classList.add('pop-in');
+            splashImage.classList.remove('pop-out');
+            splashImage.classList.add('pop-in');
+            
+            // Re-enable floating animation after transition
+            setTimeout(() => {
+                mainImage.classList.remove('pop-in');
+                mainImage.classList.add('floating');
+                splashImage.classList.remove('pop-in');
+            }, 500);
+        }, 300);
+        
+        // Update active card
+        document.querySelectorAll('.flavor-card').forEach(card => {
+            card.classList.remove('active');
+        });
+        element.classList.add('active');
+        
+        // Update recipe book if open
+        if (document.getElementById('recipeBook').classList.contains('active')) {
+            updateRecipeBook();
+        }
+    }
+
+    // Update recipe book content
+    function updateRecipeBook() {
+        const flavorData = flavors[currentFlavor];
+        
+        // Update basic info
+        document.getElementById('recipe-title').textContent = flavorData.name;
+        document.getElementById('recipe-subtitle').textContent = 'Artisan Recipe & Nutrition Guide';
+        document.getElementById('recipe-main-image').src = flavorData.image;
+        document.getElementById('calories').textContent = flavorData.nutrition.calories;
+        
+        // Update ingredients
+        const ingredientIcons = document.getElementById('ingredient-icons');
+        const ingredientList = document.getElementById('ingredient-list');
+        
+        ingredientIcons.innerHTML = '';
+        ingredientList.innerHTML = '';
+        
+        flavorData.ingredients.forEach(ingredient => {
+            // Add icon
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'flex flex-col items-center';
+            iconDiv.innerHTML = `
+                <img src="${ingredient.icon}" alt="${ingredient.name}" class="ingredient-icon mb-2">
+                <span class="text-xs text-center">${ingredient.name}</span>
+            `;
+            ingredientIcons.appendChild(iconDiv);
+            
+            // Add list item
+            const li = document.createElement('li');
+            li.className = 'flex items-center';
+            li.innerHTML = `
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                <span>${ingredient.name}</span>
+            `;
+            ingredientList.appendChild(li);
+        });
+        
+        // Update process steps
+        const processSteps = document.getElementById('process-steps');
+        processSteps.innerHTML = '';
+        
+        flavorData.steps.forEach((step, index) => {
+            const stepDiv = document.createElement('div');
+            stepDiv.className = 'process-step';
+            stepDiv.innerHTML = `
+                <div class="step-number">${index + 1}</div>
+                <p class="text-gray-700">${step}</p>
+            `;
+            processSteps.appendChild(stepDiv);
+        });
+        
+        // Update nutrition
+        document.getElementById('protein').textContent = flavorData.nutrition.protein;
+        document.getElementById('carbs').textContent = flavorData.nutrition.carbs;
+        document.getElementById('fat').textContent = flavorData.nutrition.fat;
+        document.getElementById('sugar').textContent = flavorData.nutrition.sugar;
+        
+        // Update gallery
+        const flavorGallery = document.getElementById('flavor-gallery');
+        flavorGallery.innerHTML = '';
+        
+        flavorData.gallery.forEach(image => {
+            const imgDiv = document.createElement('div');
+            imgDiv.className = 'gallery-thumb rounded-xl overflow-hidden';
+            imgDiv.innerHTML = `<img src="${image}" alt="Gallery image" class="w-full h-32 object-cover">`;
+            flavorGallery.appendChild(imgDiv);
+        });
+    }
+
+    // Payment modal functions
+    function showPaymentModal() {
+        const flavorData = flavors[currentFlavor];
+        
+        // Update payment modal with current flavor
+        document.getElementById('payment-flavor-image').src = flavorData.image;
+        document.getElementById('payment-flavor-name').textContent = flavorData.name;
+        document.getElementById('payment-flavor-price').textContent = flavorData.price;
+        
+        // Show modal
+        document.getElementById('paymentModal').classList.add('active');
+        document.getElementById('paymentOverlay').classList.add('active');
+    }
+    
+    function togglePaymentModal() {
+        document.getElementById('paymentModal').classList.toggle('active');
+        document.getElementById('paymentOverlay').classList.toggle('active');
+    }
+    
+    function processPayment() {
+        const flavorData = flavors[currentFlavor];
+        
+        // Hide payment modal
+        togglePaymentModal();
+        
+        // Update success modal
+        document.getElementById('success-flavor-name').textContent = flavorData.name;
+        document.getElementById('success-item-name').textContent = flavorData.name;
+        document.getElementById('success-item-price').textContent = flavorData.price;
+        document.getElementById('success-total-price').textContent = flavorData.price;
+        
+        // Show success modal
+        setTimeout(() => {
+            document.getElementById('successModal').classList.add('active');
+            document.getElementById('paymentOverlay').classList.add('active');
+            createConfetti();
+        }, 300);
+    }
+    
+    function closeSuccessModal() {
+        document.getElementById('successModal').classList.remove('active');
+        document.getElementById('paymentOverlay').classList.remove('active');
+    }
+    
+    function createConfetti() {
+        const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#FFA5A5', '#A5FFD6'];
+        const container = document.getElementById('successModal');
+        
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.top = -10 + 'px';
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            
+            container.appendChild(confetti);
+            
+            // Animate confetti
+            setTimeout(() => {
+                confetti.style.opacity = '1';
+                confetti.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 + 100}px) rotate(${Math.random() * 360}deg)`;
+                confetti.style.transition = `all ${Math.random() * 1 + 0.5}s ease-out`;
+                
+                // Remove after animation
+                setTimeout(() => {
+                    confetti.style.opacity = '0';
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 500);
+                }, 1000);
+            }, i * 50);
+        }
+    }
+
+    // Initialize with chocolate flavor
+    document.addEventListener('DOMContentLoaded', function() {
+        changeFlavor('chocolate', document.querySelector('.flavor-card'));
+    });
+</script>
+	</body> </html>
