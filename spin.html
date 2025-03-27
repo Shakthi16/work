@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin the Cone - FrostyDelights</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Complete inlined styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .main-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        /* Header styles */
+        .header {
+            background: #ec4899;
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.3;
+        }
+        
+        .header p {
+            margin: 8px 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .header .fa-ice-cream {
+            margin-left: 8px;
+        }
+        
+        /* Wheel Styles */
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 25px auto;
+        }
+        
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 8px solid #fecaca;
+            box-shadow: 0 0 0 8px #f9fafb, 0 0 20px rgba(0,0,0,0.2);
+            transition: transform 5s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            transform: rotate(0deg);
+        }
+        
+        .wheel-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: bottom right;
+            overflow: hidden;
+            left: 0;
+            top: 0;
+        }
+        
+        .segment-inner {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            transform-origin: bottom left;
+            left: 0;
+        }
+        
+        .segment-text {
+            position: absolute;
+            width: 80px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 4px rgba(0,0,0,0.7);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(30deg);
+            z-index: 2;
+            padding: 4px;
+            background-color: rgba(0,0,0,0.3);
+            border-radius: 4px;
+        }
+        
+        .spin-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: #ec4899;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px #fecaca;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        
+        .spin-button:hover {
+            background: #db2777;
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+        
+        .spin-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .pointer {
+            position: absolute;
+            top: 50%;
+            right: -10px;
+            transform: translateY(-50%);
+            color: #ec4899;
+            font-size: 30px;
+            z-index: 5;
+        }
+        
+        /* Result Modal */
+        .result-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .result-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 300px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s;
+        }
+        
+        .result-content h2 {
+            color: #ec4899;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .result-content p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .result-content .code {
+            display: inline-block;
+            background: #f3f4f6;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #ec4899;
+        }
+        
+        .close-btn {
+            background: #ec4899;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .close-btn:hover {
+            background: #db2777;
+            transform: translateY(-2px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ec4899;
+            opacity: 0;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Footer */
+        .disclaimer {
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+            padding: 15px 25px 25px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <h1>Spin the Cone <i class="fas fa-ice-cream"></i> Win!</h1>
+            <p>Take a spin for a chance to win discounts, free toppings, or special offers!</p>
+        </div>
+        
+        <div class="wheel-container">
+            <div class="wheel" id="wheel">
+                <!-- Wheel segments will be added by JavaScript -->
+            </div>
+            <div class="pointer">
+                <i class="fas fa-caret-right"></i>
+            </div>
+            <button class="spin-button" id="spinButton">
+                <i class="fas fa-redo-alt"></i>
+            </button>
+        </div>
+        
+        <p class="disclaimer">Limit one spin per day. Offers valid for 7 days.</p>
+    </div>
+    
+    <!-- Result Modal -->
+    <div class="result-modal" id="resultModal">
+        <div class="result-content">
+            <h2>Congratulations!</h2>
+            <p>You won: <span id="prizeText" style="font-weight: 700;">15% Off</span></p>
+            <p>Your code: <span id="prizeCode" class="code">SPIN15</span></p>
+            <button id="closeResult" class="close-btn">Claim Prize</button>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Color definitions
+            const colors = {
+                pink: '#ec4899',
+                blue: '#3b82f6',
+                yellow: '#f59e0b',
+                green: '#10b981',
+                purple: '#8b5cf6',
+                red: '#ef4444'
+            };
+            
+            // Prize configuration
+            const prizes = [
+                { text: "10% Off", code: "SPIN10", color: colors.pink },
+                { text: "Free Topping", code: "TOPPING", color: colors.blue },
+                { text: "$2 Off", code: "SPIN2", color: colors.yellow },
+                { text: "Free Cone", code: "FREECONE", color: colors.green },
+                { text: "Spin Again", code: "TRYAGAIN", color: colors.purple },
+                { text: "15% Off", code: "SPIN15", color: colors.red }
+            ];
+            
+            // Create wheel segments
+            const wheel = document.getElementById('wheel');
+            const segmentAngle = 360 / prizes.length;
+            
+            prizes.forEach((prize, index) => {
+                const segment = document.createElement('div');
+                segment.className = 'wheel-segment';
+                segment.style.transform = `rotate(${index * segmentAngle}deg)`;
+                
+                const segmentInner = document.createElement('div');
+                segmentInner.className = 'segment-inner';
+                segmentInner.style.transform = `skewY(${90 - segmentAngle}deg)`;
+                segmentInner.style.background = prize.color;
+                
+                const segmentText = document.createElement('div');
+                segmentText.className = 'segment-text';
+                segmentText.textContent = prize.text;
+                
+                segmentInner.appendChild(segmentText);
+                segment.appendChild(segmentInner);
+                wheel.appendChild(segment);
+            });
+            
+            // Spin functionality
+            const spinButton = document.getElementById('spinButton');
+            const resultModal = document.getElementById('resultModal');
+            const prizeText = document.getElementById('prizeText');
+            const prizeCode = document.getElementById('prizeCode');
+            const closeResult = document.getElementById('closeResult');
+            
+            let isSpinning = false;
+            let currentRotation = 0;
+            
+            spinButton.addEventListener('click', function() {
+                if (isSpinning) return;
+                isSpinning = true;
+                spinButton.disabled = true;
+                
+                // Hide previous result
+                resultModal.style.display = 'none';
+                
+                // Random spin (5-7 full rotations plus segment)
+                const fullRotations = 5 + Math.floor(Math.random() * 3);
+                const prizeIndex = Math.floor(Math.random() * prizes.length);
+                const extraRotation = prizeIndex * segmentAngle;
+                const totalRotation = currentRotation + (fullRotations * 360) + extraRotation;
+                
+                // Apply spin animation
+                wheel.style.transition = `transform ${4 + fullRotations}s cubic-bezier(0.17, 0.67, 0.12, 0.99)`;
+                wheel.style.transform = `rotate(${-totalRotation}deg)`;
+                currentRotation = totalRotation % 360;
+                
+                // Show result when animation completes
+                setTimeout(() => {
+                    isSpinning = false;
+                    spinButton.disabled = false;
+                    
+                    const prize = prizes[prizeIndex];
+                    prizeText.textContent = prize.text;
+                    prizeCode.textContent = prize.code;
+                    resultModal.style.display = 'flex';
+                    
+                    // Create confetti
+                    createConfetti();
+                    
+                    // Special case for "Spin Again"
+                    if (prize.text === "Spin Again") {
+                        setTimeout(() => {
+                            resultModal.style.display = 'none';
+                            spinButton.click(); // Auto-spin again
+                        }, 1500);
+                    }
+                }, (4 + fullRotations) * 1000);
+            });
+            
+            closeResult.addEventListener('click', function() {
+                resultModal.style.display = 'none';
+            });
+            
+            // Confetti effect
+            function createConfetti() {
+                const container = document.body;
+                
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    
+                    // Random position
+                    const xPos = Math.random() * 100;
+                    const yPos = Math.random() * 100 - 20;
+                    
+                    // Random color
+                    const colorKeys = Object.keys(colors);
+                    const color = colors[colorKeys[Math.floor(Math.random() * colorKeys.length)]];
+                    
+                    // Random size
+                    const size = Math.random() * 10 + 5;
+                    
+                    // Random shape
+                    const shapes = ['rounded-full', 'rounded-none', 'rounded-lg'];
+                    const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                    
+                    // Apply styles
+                    confetti.style.left = `${xPos}vw`;
+                    confetti.style.top = `${yPos}vh`;
+                    confetti.style.backgroundColor = color;
+                    confetti.style.width = `${size}px`;
+                    confetti.style.height = `${size}px`;
+                    confetti.classList.add(shape);
+                    
+                    // Animation
+                    const animationDuration = Math.random() * 3 + 2;
+                    confetti.style.animation = `fall ${animationDuration}s linear forwards`;
+                    
+                    // Add to container
+                    container.appendChild(confetti);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, animationDuration * 1000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
